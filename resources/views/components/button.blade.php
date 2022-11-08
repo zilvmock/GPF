@@ -1,4 +1,4 @@
-@props(['variant' => 'primary', 'iconOnly' => false, 'srText' => '', 'href' => false, 'size' => 'base', 'disabled' => false, 'pill' => false, 'squared' => false])
+@props(['variant' => 'primary', 'iconOnly' => false, 'srText' => '', 'href' => false, 'size' => 'base', 'disabled' => false, 'pill' => false, 'squared' => false, 'id' => ''])
 
 @php
 
@@ -43,26 +43,29 @@
         break;
     }
 
+    if ($disabled) {
+        $baseClasses = $baseClasses . ' opacity-50 cursor-not-allowed';
+    }
+
     $classes = $baseClasses . ' ' . $sizeClasses . ' ' . $variantClasses;
 
     if(!$squared && !$pill){
         $classes .= ' rounded-md';
     } else if ($pill) {
         $classes .= ' rounded-full';
-        
     }
 
 @endphp
 
 @if ($href)
-    <a href="{{ $href }}" {{ $attributes->merge(['class' => $classes]) }}>
+    <a href="{{ $href }}" {{ $attributes->merge(['class' => $classes, 'id' => $id]) }}>
         {{ $slot }}
         @if($iconOnly)
             <span class="sr-only">{{ $srText ?? '' }}</span>
         @endif
     </a>
 @else
-    <button {{ $attributes->merge(['type' => 'submit', 'class' => $classes]) }}>
+    <button {{ $attributes->merge(['type' => 'submit', 'class' => $classes, 'id' => $id]) }}>
         {{ $slot }}
         @if($iconOnly)
             <span class="sr-only">{{ $srText ?? '' }}</span>
