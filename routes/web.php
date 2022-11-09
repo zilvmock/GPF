@@ -3,8 +3,6 @@
 use App\Http\Controllers\BrowseController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RoomController;
-use App\Http\Livewire\Room\JoinRoom;
-use App\Http\Livewire\Room\Main;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +33,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/join-room/{room:id}', [RoomController::class, 'joinRoom'])->name('join_room');
     Route::delete('/delete-room/{room:id}', [RoomController::class, 'deleteRoom'])->name('delete_room');
     Route::put('/leave-room/{room:id}', [RoomController::class, 'leaveRoom'])->name('leave_room');
+    Route::put('/lock-room/{room:id}', [RoomController::class, 'lockRoom'])->name('lock_room');
+    Route::put('/kick-from-room/{room:id}/{user:id}', [RoomController::class, 'kickFromRoom'])->name('kick_from_room');
 
     Route::put('/message-send/{room:id}', [MessageController::class, 'sendMessage'])->name('send_message');
 });

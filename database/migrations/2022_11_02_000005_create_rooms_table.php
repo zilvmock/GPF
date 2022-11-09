@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->longText('title');
             $table->string('slug');
             $table->integer('size');
-            $table->boolean('locked')->default(false);
+            $table->boolean('isLocked')->default(false);
             $table->timestamps();
 
             $table->foreign('game_id')->references('id')->on('games')->onDelete('cascade');

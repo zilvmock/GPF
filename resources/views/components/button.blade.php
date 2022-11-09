@@ -1,4 +1,4 @@
-@props(['variant' => 'primary', 'iconOnly' => false, 'srText' => '', 'href' => false, 'size' => 'base', 'disabled' => false, 'pill' => false, 'squared' => false, 'id' => ''])
+@props(['variant' => 'primary', 'type' => '', 'iconOnly' => false, 'srText' => '', 'href' => false, 'size' => 'base', 'disabled' => false, 'pill' => false, 'squared' => false, 'id' => ''])
 
 @php
 
@@ -31,6 +31,9 @@
     }
 
     switch ($size) {
+        case 'xs':
+            $sizeClasses = $iconOnly ? 'p-0.5' : 'px-1.5 py-0.5 text-xs';
+        break;
         case 'sm':
             $sizeClasses = $iconOnly ? 'p-1.5' : 'px-2.5 py-1.5 text-sm';
         break;
@@ -58,17 +61,25 @@
 @endphp
 
 @if ($href)
-    <a href="{{ $href }}" {{ $attributes->merge(['class' => $classes, 'id' => $id]) }}>
-        {{ $slot }}
-        @if($iconOnly)
-            <span class="sr-only">{{ $srText ?? '' }}</span>
-        @endif
-    </a>
-@else
-    <button {{ $attributes->merge(['type' => 'submit', 'class' => $classes, 'id' => $id]) }}>
-        {{ $slot }}
-        @if($iconOnly)
-            <span class="sr-only">{{ $srText ?? '' }}</span>
-        @endif
-    </button>
-@endif
+    @if ($id == '')
+        <a href="{{ $href }}" {{ $attributes->merge(['class' => $classes]) }}>
+            @else
+                <a href="{{ $href }}" {{ $attributes->merge(['class' => $classes, 'id' => $id]) }}>
+                    @endif
+                    {{ $slot }}
+                    @if($iconOnly)
+                        <span class="sr-only">{{ $srText ?? '' }}</span>
+                    @endif
+                </a>
+                @else
+                    @if ($id == '')
+                        <button {{ $attributes->merge(['class' => $classes]) }}>
+                            @else
+                                <button {{ $attributes->merge(['class' => $classes, 'id' => $id]) }}>
+                                    @endif
+                                    {{ $slot }}
+                                    @if($iconOnly)
+                                        <span class="sr-only">{{ $srText ?? '' }}</span>
+                                    @endif
+                                </button>
+    @endif

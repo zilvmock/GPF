@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <h2 class="text-xl font-semibold leading-tight">
-                {{ __('Room View') }}
+                {{ __($room_title) }}
             </h2>
         </div>
     </x-slot>
@@ -12,11 +12,15 @@
                 <form action="{{route('delete_room', ['room' => $room, 'game' => $game, 'id' => $id])}}" method="post">
                     @csrf
                     @method('DELETE')
-                    <x-button variant="primary" size="sm">
+                    <x-button variant="danger" size="sm">
                         <x-heroicon-o-trash class="w-4"/>
                         Delete Room
                     </x-button>
                 </form>
+                @livewire('lock-button', [
+                    'room_id' => $room,
+                    'room_lock' => $room_lock,
+                ])
             @else
                 <form action="{{route('leave_room', ['room' => $room, 'game' => $game, 'id' => $id])}}" method="post">
                     @csrf
@@ -27,10 +31,8 @@
         </div>
         <div class="flex my-4 space-x-2">
             <x-layout.layout-card-2>
-                <div>
-                    <h5 class=""><b>Users</b></h5>
-                    @livewire('room-users', ['room_id' => $room, 'owner_id' => $owner->id])
-                </div>
+                <h5 class=""><b>Users</b></h5>
+                @livewire('room-users', ['room_id' => $room, 'owner_id' => $owner->id])
             </x-layout.layout-card-2>
             <x-layout.layout-card-2>
                 <div>
@@ -67,7 +69,3 @@
         </div>
     </x-layout.layout-card>
 </x-app-layout>
-{{--<script>--}}
-{{--    function leaveRoom(){window.livewire.emit('leave-user');}--}}
-{{--    function deleteRoom(){window.livewire.emit('delete-room');}--}}
-{{--</script>--}}

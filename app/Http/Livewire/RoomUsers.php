@@ -16,6 +16,7 @@ class RoomUsers extends Component
             "echo:room.{$this->room_id},.join-room" => 'render',
             "echo:room.{$this->room_id},.leave-room" => 'render',
             "echo:room.{$this->room_id},.delete-room" => 'leaveAllUsersFromRoom',
+            "echo:room.{$this->room_id},.kick-from-room" => 'leaveKickedUserFromRoom',
         ];
     }
 
@@ -24,13 +25,17 @@ class RoomUsers extends Component
         return redirect()->route('browse');
     }
 
+    public function leaveKickedUserFromRoom()
+    {
+        if (auth()->user()->current_room_id != $this->room_id) {
+            return redirect()->route('browse')->with('error', 'You have been kicked from the room!');
+        }
+        return $this->render();
+    }
+
     public function render()
     {
         $users = DB::table('users')->where('current_room_id', $this->room_id)->get();
-//        $owner = DB::table('users')->where('id', Room::find($this->room_id)->owner_id)->first();
-//        $users = $users->filter(function ($user) use ($owner) {
-//            return $user->id != $owner->id;
-//        });
         return view('livewire.room-users', [
             'users' => $users,
             'owner_id' => $this->owner_id,

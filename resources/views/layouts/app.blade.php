@@ -51,6 +51,9 @@
 
             <!-- Page Content -->
             <main class="px-4 sm:px-6 flex-1">
+                <x-warning-toast/>
+                <x-success-toast/>
+                <x-error-toast/>
                 {{ $slot }}
             </main>
 

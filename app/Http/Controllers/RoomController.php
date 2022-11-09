@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\CreateRoomEvent;
 use App\Events\DeleteRoomEvent;
-use App\Events\GlobalLeaveRoomEvent;
 use App\Events\JoinRoomEvent;
+use App\Events\KickFromRoomEvent;
 use App\Events\LeaveRoomEvent;
+use App\Events\LockRoomEvent;
 use App\Events\UpdateRoomsEvent;
 use App\Models\Game;
 use App\Models\Message;
@@ -79,10 +79,22 @@ class RoomController extends Controller
 
         $owner = Room::where('id', $room_id)->first()->user;
 
+        $room = Room::select('owner_id', 'title', 'size', 'isLocked')->where('id', $room_id)->first();
+        $users_in_room = DB::table('users')->where('current_room_id', $room_id)->count();
+        if ($users_in_room >= $room->size) {
+            return back()->with('warning', 'Room is full!');
+        } elseif ($room->isLocked && $room->owner_id != auth()->user()->id ||
+            $room->isLocked && $room->owner_id != auth()->user()->id &&
+            auth()->user()->current_room_id != $room->id) {
+            return back()->with('warning', 'Room is locked!');
+        }
+
         return view('room-view', [
             'game' => $game_slug,
             'id' => $game_id,
             'room' => $room_id,
+            'room_title' => $room->title,
+            'room_lock' => $room->isLocked,
             'owner' => $owner,
         ]);
     }
@@ -95,7 +107,7 @@ class RoomController extends Controller
 
         $user = auth()->user();
 
-        if ($user->current_room_id != 0) {
+        if ($user->current_room_id != 0 && $user->current_room_id == $room_id) {
             return redirect()->route('show_room', [
                 'game' => $game_slug,
                 'id' => $game_id,
@@ -134,6 +146,20 @@ class RoomController extends Controller
         ]);
     }
 
+    public function kickFromRoom(Request $request)
+    {
+        $room_id = $request->room;
+        $user_id = $request->user;
+
+        $user = User::select('id', 'current_room_id')->where('id', $user_id)->first();
+        $user->current_room_id = 0;
+        $user->save();
+
+        broadcast(new KickFromRoomEvent($room_id));
+        broadcast(new UpdateRoomsEvent());
+        return back()->with('success', 'User kicked from the room!');
+    }
+
     public function deleteRoom(Request $request)
     {
         $room_id = $request->room;
@@ -152,5 +178,23 @@ class RoomController extends Controller
             'game' => $game_slug,
             'id' => $game_id,
         ]);
+    }
+
+    public function lockRoom(Request $request)
+    {
+        $room_id = $request->room;
+        $room = Room::where('id', $room_id)->first();
+        $state = $room->isLocked;
+        $state = !$state;
+        $room->isLocked = $state;
+        $room->save();
+        broadcast(new LockRoomEvent($room_id));
+        broadcast(new UpdateRoomsEvent());
+
+        if ($room->isLocked) {
+            return redirect()->back()->with('success', 'Room locked!');
+        } else {
+            return redirect()->back()->with('success', 'Room unlocked!');
+        }
     }
 }

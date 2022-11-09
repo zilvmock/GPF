@@ -21,8 +21,8 @@
             </x-button>
         @endif
         @livewire('rooms', [
-               'game_slug' => $game_slug,
-               'game_id' => $game_id,
-           ])
+           'game_slug' => $game_slug,
+           'game_id' => $game_id,
+       ])
     </x-layout.layout-card>
 </x-app-layout>

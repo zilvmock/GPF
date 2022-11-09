@@ -9,7 +9,7 @@ class Room extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'size', 'locked'];
+    protected $fillable = ['title', 'slug', 'size', 'isLocked'];
 
     public function user()
     {
