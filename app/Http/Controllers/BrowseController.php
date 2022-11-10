@@ -20,7 +20,7 @@ class BrowseController extends Controller
     {
         $game_id = $request->id;
         $game_slug = $request->game;
-        $rooms = Room::select('id', 'owner_id', 'title', 'slug', 'size', 'isLocked')->where('game_id', $game_id)->get();
+        $rooms = Room::select('id', 'owner_id', 'title', 'slug', 'size', 'is_locked')->where('game_id', $game_id)->get();
 
         return view('browse-game-rooms', [
             'rooms' => $rooms,

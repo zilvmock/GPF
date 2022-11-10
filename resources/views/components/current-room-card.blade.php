@@ -6,7 +6,7 @@
     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
         You haven't left your last room. Do you want to join back?
     </p>
-    <a href="{{route('show_room', ['game' => $game_slug, 'id' => $game_id, 'room' => $room_id,])}}"
+    <a href="{{route('show_room', ['game' => $game_slug, 'id' => $game_id, 'room' => $room_id])}}"
        class="inline-flex items-center py-1 px-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         Join Back
         <x-heroicon-o-arrow-right class="w-5"/>

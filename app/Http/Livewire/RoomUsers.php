@@ -8,6 +8,7 @@ use Livewire\Component;
 class RoomUsers extends Component
 {
     public $room_id;
+    public $room_size;
     public $owner_id;
 
     public function getListeners()

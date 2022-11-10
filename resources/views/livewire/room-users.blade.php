@@ -1,4 +1,5 @@
 <div>
+    <h5 class=""><b>Users</b> <small>({{$users->count()}}/{{$room_size}})</small></h5>
     @foreach($users as $user)
         @if($user->id == $owner_id)
             <div class="flex items-center justify-between">
@@ -52,5 +53,4 @@
             @endif
         @endif
     @endforeach
-
 </div>

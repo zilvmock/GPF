@@ -13,10 +13,12 @@ class KickFromRoomEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $roomId;
+    public $user_username;
 
-    public function __construct($roomId)
+    public function __construct($roomId, $user_username)
     {
         $this->roomId = $roomId;
+        $this->user_username = $user_username;
     }
 
     public function broadcastOn()
@@ -27,5 +29,10 @@ class KickFromRoomEvent implements ShouldBroadcast
     public function broadcastAs()
     {
         return 'kick-from-room';
+    }
+
+    public function broadcastWith()
+    {
+        return ['user_username' => $this->user_username];
     }
 }

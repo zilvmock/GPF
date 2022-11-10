@@ -24,7 +24,7 @@ class Rooms extends Component
     {
         $rooms = DB::table('rooms')
             ->where('game_id', $this->game_id)
-            ->get();
+            ->get()->paginate(10);
         foreach ($rooms as $room) {
             $room->users_count = DB::table('users')
                 ->where('current_room_id', $room->id)

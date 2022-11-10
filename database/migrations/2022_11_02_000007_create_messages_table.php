@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('room_id');
             $table->unsignedBigInteger('user_id');
             $table->longText('message');
+            $table->boolean('is_system_message')->default(false);
             $table->timestamps();
 
             $table->foreign('room_id')->references('id')->on('rooms')->cascadeOnDelete();

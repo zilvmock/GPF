@@ -29,13 +29,12 @@
                 </form>
             @endif
         </div>
-        <div class="flex my-4 space-x-2">
-            <x-layout.layout-card-2>
-                <h5 class=""><b>Users</b></h5>
-                @livewire('room-users', ['room_id' => $room, 'owner_id' => $owner->id])
+        <div class="md:flex my-4 md:space-x-2 space-y-2">
+            <x-layout.layout-card-2 class="h-max mt-2">
+                @livewire('room-users', ['room_id' => $room, 'room_size' => $room_size, 'owner_id' => $owner->id])
             </x-layout.layout-card-2>
-            <x-layout.layout-card-2>
-                <div>
+            <x-layout.layout-card-2 class="md:w-screen">
+                <div class="h-96 overflow-y-auto" style="display: flex; flex-direction: column-reverse;">
                     @livewire('chat', [
                         'room_id' => $room,
                     ])
@@ -54,7 +53,8 @@
                             {{--                                <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z" clip-rule="evenodd"></path></svg>--}}
                             {{--                                <span class="sr-only">Add emoji</span>--}}
                             {{--                            </button>--}}
-                            <input type="text" name="message"
+                            <!--suppress HtmlFormInputWithoutLabel -->
+                            <input type="text" name="message" id="msg"
                                    class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
                                    placeholder="Your message..."/>
                             <button type="submit"
@@ -69,3 +69,8 @@
         </div>
     </x-layout.layout-card>
 </x-app-layout>
+<script>
+    window.onload = function () {
+        document.getElementById('msg').focus();
+    }
+</script>
