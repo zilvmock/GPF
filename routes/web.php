@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\BrowseController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +20,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    Route::get('/browse', [BrowseController::class, 'showGames'])->name('browse');
+    Route::get('/browse/{game:slug}/{id}/rooms', [BrowseController::class, 'showRooms'])->name('rooms');
+    Route::get('/browse/{game:slug}/{id}/create-room', [RoomController::class, 'showCreateNewRoom'])->name('create_new_room');
+    Route::get('/browse/{game:slug}/{id}/{room:id}', [RoomController::class, 'showRoom'])->name('show_room');
+
+    Route::put('/store-room/{game:id}', [RoomController::class, 'storeCreatedRoom'])->name('store_new_room');
+    Route::get('/join-room/{room:id}', [RoomController::class, 'joinRoom'])->name('join_room');
+    Route::delete('/delete-room/{room:id}', [RoomController::class, 'deleteRoom'])->name('delete_room');
+    Route::put('/leave-room/{room:id}', [RoomController::class, 'leaveRoom'])->name('leave_room');
+    Route::put('/lock-room/{room:id}', [RoomController::class, 'lockRoom'])->name('lock_room');
+    Route::put('/kick-from-room/{room:id}/{user:id}', [RoomController::class, 'kickFromRoom'])->name('kick_from_room');
+
+    Route::put('/message-send/{room:id}', [MessageController::class, 'sendMessage'])->name('send_message');
+});
 
 // useless routes
 // Just to demo sidebar dropdown links active states.

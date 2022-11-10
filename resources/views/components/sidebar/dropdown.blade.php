@@ -3,9 +3,9 @@
 <div class="relative" x-data="{ open: @json($active) }">
     <x-sidebar.link collapsible title="{{ $title }}" @click="open = !open" isActive="{{ $active }}">
         @if ($icon ?? false)
-        <x-slot name="icon">
-            {{ $icon }}
-        </x-slot>
+            <x-slot name="icon">
+                {{ $icon }}
+            </x-slot>
         @endif
     </x-sidebar.link>
 

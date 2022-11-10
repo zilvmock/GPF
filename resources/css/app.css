@@ -7,3 +7,21 @@
 .dark .ps__rail-x {
     background-color: transparent !important;
 }
+
+body {
+    /*noinspection CssInvalidPropertyValue*/
+    overflow: overlay;
+}
+
+body::-webkit-scrollbar {
+    width: 8px;
+}
+
+body::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #a9a9a9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555555;
+}

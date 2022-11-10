@@ -21,6 +21,7 @@ document.addEventListener("alpine:init", () => {
                     // upscroll
                     this.scrollingDown = false;
                     this.scrollingUp = true;
+                    // noinspection EqualityComparisonWithCoercionJS
                     if (st == 0) {
                         //  reset
                         this.scrollingDown = false;
@@ -59,6 +60,7 @@ document.addEventListener("alpine:init", () => {
                 this.isSidebarHovered = value;
             },
             handleWindowResize() {
+                // noinspection RedundantIfStatementJS
                 if (window.innerWidth <= 1024) {
                     this.isSidebarOpen = false;
                 } else {

@@ -2,31 +2,32 @@
 
     <x-sidebar.link title="Dashboard" href="{{ route('dashboard') }}" :isActive="request()->routeIs('dashboard')">
         <x-slot name="icon">
-            <x-icons.dashboard class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+            <x-icons.dashboard class="flex-shrink-0 w-6 h-6" aria-hidden="true"/>
         </x-slot>
     </x-sidebar.link>
 
     <x-sidebar.dropdown title="Buttons" :active="Str::startsWith(request()->route()->uri(), 'buttons')">
         <x-slot name="icon">
-            <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+            <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true"/>
         </x-slot>
 
         <x-sidebar.sublink title="Text button" href="{{ route('buttons.text') }}"
-            :active="request()->routeIs('buttons.text')" />
+                           :active="request()->routeIs('buttons.text')"/>
         <x-sidebar.sublink title="Icon button" href="{{ route('buttons.icon') }}"
-            :active="request()->routeIs('buttons.icon')" />
+                           :active="request()->routeIs('buttons.icon')"/>
         <x-sidebar.sublink title="Text with icon" href="{{ route('buttons.text-icon') }}"
-            :active="request()->routeIs('buttons.text-icon')" />
+                           :active="request()->routeIs('buttons.text-icon')"/>
     </x-sidebar.dropdown>
 
-    <div x-transition x-show="isSidebarOpen || isSidebarHovered" class="text-sm text-gray-500">Dummy Links</div>
+    <div x-transition x-show="isSidebarOpen || isSidebarHovered" class="text-sm text-gray-500">Browse</div>
+    <x-sidebar.link title="Browse Games" href="{{route('browse')}}"/>
 
-    @php
-        $links = array_fill(0, 20, '');
-    @endphp
+    {{--    @php--}}
+    {{--        $links = array_fill(0, 20, '');--}}
+    {{--    @endphp--}}
 
-    @foreach ($links as $index => $link)
-        <x-sidebar.link title="Dummy link {{ $index + 1 }}" href="#" />
-    @endforeach
-       
+    {{--    @foreach ($links as $index => $link)--}}
+    {{--        <x-sidebar.link title="Dummy link {{ $index + 1 }}" href="#" />--}}
+    {{--    @endforeach--}}
+
 </x-perfect-scrollbar>
