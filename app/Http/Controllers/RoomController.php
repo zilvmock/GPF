@@ -8,6 +8,7 @@ use App\Events\KickFromRoomEvent;
 use App\Events\LeaveRoomEvent;
 use App\Events\LockRoomEvent;
 use App\Events\UpdateRoomsEvent;
+use App\Events\UpdateOwnerEvent;
 use App\Models\Game;
 use App\Models\Room;
 use App\Models\User;
@@ -52,7 +53,7 @@ class RoomController extends Controller
         ]);
 
         if ($validator->passes()) {
-            $room_id = DB::table('rooms')->insertGetId([
+            $room_id = Room::insertGetId([
                 'owner_id' => $owner_id,
                 'game_id' => $game_id,
                 'title' => $fieldsToVerify['title'],
@@ -83,8 +84,6 @@ class RoomController extends Controller
         $game_id = $request->id;
         $room_id = $request->room;
 
-        $owner = Room::where('id', $room_id)->first()->user;
-
         $users_in_room = DB::table('users')->where('current_room_id', $room_id)->count();
         $room = Room::select('id', 'owner_id', 'title', 'size', 'is_locked')->where('id', $room_id)->first();
         if ($users_in_room >= $room->size && auth()->user()->current_room_id != $room_id) {
@@ -100,7 +99,6 @@ class RoomController extends Controller
             'room_title' => $room->title,
             'room_lock' => $room->is_locked,
             'room_size' => $room->size,
-            'owner' => $owner,
         ]);
     }
 
@@ -120,16 +118,26 @@ class RoomController extends Controller
             ]);
         }
 
-        $room = Room::where('owner_id', $user->id)->first();
-        if ($room) {
-            $room->delete();
-            broadcast(new DeleteRoomEvent($room_id));
-        }
-
         $user->current_room_id = $room_id;
         $user->save();
-
         broadcast(new JoinRoomEvent($room_id, $user->username));
+
+        // If the user is the owner of some room, then we need to assign new owner of that room.
+        // If there is no other people in the room, then we need to delete that room.
+        $room = Room::where('owner_id', $user->id)->first();
+        if ($room) {
+            $prev_owner = $room->user;
+            $users = User::select('id', 'username')->where('current_room_id', $room->id)->get();
+            if ($users->count() != 0) {
+                $room->owner_id = $users[0]->id;
+                $room->save();
+                broadcast(new UpdateOwnerEvent($room->id, $prev_owner->username, $users[0]->username));
+            } else {
+                $room->delete();
+                broadcast(new DeleteRoomEvent($room->id));
+            }
+        }
+
         broadcast(new UpdateRoomsEvent());
         return redirect()->route('show_room', [
             'game' => $game_slug,
@@ -151,6 +159,7 @@ class RoomController extends Controller
 
         broadcast(new LeaveRoomEvent($room_id, $user->username));
         broadcast(new UpdateRoomsEvent());
+
         return redirect()->route('rooms', [
             'game' => $game_slug,
             'id' => $game_id,
