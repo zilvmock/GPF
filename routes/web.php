@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BrowseController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/kick-from-room/{room:id}/{user:id}', [RoomController::class, 'kickFromRoom'])->name('kick_from_room');
 
     Route::put('/message-send/{room:id}', [MessageController::class, 'sendMessage'])->name('send_message');
+
+    Route::get('/profile/{user:username}', [ProfileController::class, 'showProfile'])->name('show_profile');
 });
 
 // useless routes

@@ -2,7 +2,7 @@
      class="sticky top-0 z-10 flex items-center justify-between px-4 py-4 sm:px-6 transition-transform duration-500 bg-white dark:bg-dark-eval-1"
      :class="{
         '-translate-y-full': scrollingDown,
-        'translate-y-0': scrollingUp,
+        'translate-y-0': scrollingUp
     }">
 
     <div class="flex items-center gap-3">
@@ -36,6 +36,15 @@
             </x-slot>
 
             <x-slot name="content">
+                <form method="POST" action="{{ route('show_profile', auth()->user()) }}">
+                    @csrf
+                    @method('GET')
+                    <x-dropdown-link :href="route('show_profile', auth()->user())" onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                        {{ __('My Profile') }}
+                    </x-dropdown-link>
+                </form>
+
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -55,7 +64,7 @@
     class="fixed inset-x-0 bottom-0 flex items-center justify-between px-4 py-4 sm:px-6 transition-transform duration-500 bg-white md:hidden dark:bg-dark-eval-1"
     :class="{
         'translate-y-full': scrollingDown,
-        'translate-y-0': scrollingUp,
+        'translate-y-0': scrollingUp
     }">
     <x-button type="button" iconOnly variant="secondary" srText="Search">
         <x-heroicon-o-search aria-hidden="true" class="w-6 h-6"/>
