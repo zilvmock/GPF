@@ -20,7 +20,6 @@
             </div>
             <div class="flex items-center">
                 @if ($room->users_count >= $room->size && auth()->user()->current_room_id != $room->id)
-                    <p>yes</p>
                     <x-button data-tooltip-target="tooltip-default" variant="primary" size="sm" disabled>
                         <x-heroicon-o-arrow-left-on-rectangle class="w-5"/>
                         Join Room
@@ -50,7 +49,8 @@
                                             class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200"/>
                                         <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                                             You haven't left your last room! Do you want to leave and join this room
-                                            instead? If you are the owner of previous room, it will be deleted.
+                                            instead? If you are the owner of previous room, new owner will be picked.
+                                            Otherwise, if room is empty it will be deleted.
                                         </h3>
                                         <button type="submit" data-modal-toggle="popup-modal-{{$room->id}}"
                                                 class="text-white bg-red-600

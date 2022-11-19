@@ -17,6 +17,7 @@ class Chat extends Component
             "echo:room.{$this->room_id},.join-room:user_username" => 'joinedMessage',
             "echo:room.{$this->room_id},.leave-room:user_username" => 'leftMessage',
             "echo:room.{$this->room_id},.kick-from-room:user_username" => 'kickedMessage',
+            "echo:room.{$this->room_id},.update-owner:old_owner_username:new_owner_username" => 'ownerChangedMessage',
         ];
     }
 
@@ -33,6 +34,11 @@ class Chat extends Component
     public function kickedMessage($payload)
     {
         $this->createNotificationMessage("{$payload['user_username']} was kicked from the room!");
+    }
+
+    public function ownerChangedMessage($payload)
+    {
+        $this->createNotificationMessage("{$payload['old_owner_username']} (owner) left the room. {$payload['new_owner_username']} is the new owner!");
     }
 
     public function createNotificationMessage($message)

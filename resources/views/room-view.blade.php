@@ -7,31 +7,16 @@
         </div>
     </x-slot>
     <x-layout.layout-card>
-        <div class="flex items-center">
-            @if(auth()->user()->id == $owner->id)
-                <form action="{{route('delete_room', ['room' => $room, 'game' => $game, 'id' => $id])}}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <x-button variant="danger" size="sm">
-                        <x-heroicon-o-trash class="w-4"/>
-                        Delete Room
-                    </x-button>
-                </form>
-                @livewire('lock-button', [
-                    'room_id' => $room,
-                    'room_lock' => $room_lock,
-                ])
-            @else
-                <form action="{{route('leave_room', ['room' => $room, 'game' => $game, 'id' => $id])}}" method="post">
-                    @csrf
-                    @method('PUT')
-                    <x-button variant="primary" size="sm"><b>Leave Room</b></x-button>
-                </form>
-            @endif
-        </div>
+        @livewire('room-controls', [
+            'room_id' => $room,
+            'game_slug' => $game,
+            'game_id' => $id,
+            'room_title' => $room_title,
+            'room_lock' => $room_lock,
+        ])
         <div class="md:flex my-4 md:space-x-2 space-y-2">
             <x-layout.layout-card-2 class="h-max mt-2">
-                @livewire('room-users', ['room_id' => $room, 'room_size' => $room_size, 'owner_id' => $owner->id])
+                @livewire('room-users', ['room_id' => $room, 'room_size' => $room_size])
             </x-layout.layout-card-2>
             <x-layout.layout-card-2 class="md:w-screen">
                 <div class="h-96 overflow-y-auto" style="display: flex; flex-direction: column-reverse;">

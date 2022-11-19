@@ -16,7 +16,7 @@ class Rooms extends Component
         return [
             "echo:room.{$this->room_id},.join-room" => 'render',
             "echo:room.{$this->room_id},.leave-room" => 'render',
-            "echo:room,.update-room" => 'render',
+            "echo:room,.update-rooms" => 'render',
         ];
     }
 
