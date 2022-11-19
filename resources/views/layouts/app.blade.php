@@ -26,44 +26,45 @@
 </head>
 
 <body class="font-sans antialiased">
-<div x-data="mainState" :class="{ dark: isDarkMode }" @resize.window="handleWindowResize" x-cloak>
-    <div class="min-h-screen text-gray-900 bg-gray-100 dark:bg-dark-bg dark:text-gray-200">
-        <!-- Sidebar -->
-        <x-sidebar.sidebar/>
-        <!-- Page Wrapper -->
-        <div class="flex flex-col min-h-screen"
-             :class="{
-                    'lg:ml-64': isSidebarOpen,
-                    'md:ml-16': !isSidebarOpen
-                }"
-             style="transition-property: margin; transition-duration: 150ms;"
-        >
+    <div x-data="mainState" :class="{ dark: isDarkMode }" @resize.window="handleWindowResize" x-cloak>
+        <div class="min-h-screen text-gray-900 bg-gray-100 dark:bg-dark-bg dark:text-gray-200">
+            <!-- Sidebar -->
+            <x-sidebar.sidebar/>
+            <!-- Page Wrapper -->
+            <div class="flex flex-col min-h-screen"
+                 :class="{
+                        'lg:ml-64': isSidebarOpen,
+                        'md:ml-16': !isSidebarOpen
+                    }"
+                 style="transition-property: margin; transition-duration: 150ms;"
+            >
 
-            <!-- Navbar -->
-            <x-navbar/>
+                <!-- Navbar -->
+                <x-navbar/>
 
-            <!-- Page Heading -->
-            <header>
-                <div class="p-4 sm:p-6">
-                    {{ $header }}
-                </div>
-            </header>
+                <!-- Page Heading -->
+                <header>
+                    <div class="p-4 sm:p-6">
+                        {{ $header }}
+                    </div>
+                </header>
 
-            <!-- Page Content -->
-            <main class="px-4 sm:px-6 flex-1">
-                <x-warning-toast/>
-                <x-success-toast/>
-                <x-error-toast/>
-                {{ $slot }}
-            </main>
+                <!-- Page Content -->
+                <main class="px-4 sm:px-6 flex-1">
+                    <x-warning-toast/>
+                    <x-success-toast/>
+                    <x-error-toast/>
+                    {{ $slot }}
+                </main>
 
-            <!-- Page Footer -->
-            <x-footer/>
+                <!-- Page Footer -->
+                <x-footer/>
+            </div>
         </div>
     </div>
-</div>
-@livewireScripts
-<script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
-</body>
 
+    @livewireScripts
+    <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
+    @yield('scripts')
+</body>
 </html>

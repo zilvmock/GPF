@@ -45,6 +45,15 @@
                     </x-dropdown-link>
                 </form>
 
+                <form method="POST" action="{{ route('edit_profile') }}">
+                    @csrf
+                    @method('GET')
+                    <x-dropdown-link :href="route('edit_profile')" onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                        {{ __('Edit Profile') }}
+                    </x-dropdown-link>
+                </form>
+
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -70,7 +79,7 @@
         <x-heroicon-o-search aria-hidden="true" class="w-6 h-6"/>
     </x-button>
 
-    <a href="{{ route('dashboard') }}">
+    <a href="{{ route('browse') }}">
         <x-application-logo aria-hidden="true" class="w-10 h-10"/>
         <span class="sr-only">K UI</span>
     </a>

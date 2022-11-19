@@ -4,6 +4,7 @@ use App\Http\Controllers\BrowseController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,10 +22,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+Route::post('/upload', [UploadController::class, 'store']);
+
+Route::middleware(['auth', 'verified', 'noPendingVerify'])->group(function () {
     Route::get('/browse', [BrowseController::class, 'showGames'])->name('browse');
     Route::get('/browse/{game:slug}/{id}/rooms', [BrowseController::class, 'showRooms'])->name('rooms');
     Route::get('/browse/{game:slug}/{id}/create-room', [RoomController::class, 'showCreateNewRoom'])->name('create_new_room');
@@ -39,8 +39,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::put('/message-send/{room:id}', [MessageController::class, 'sendMessage'])->name('send_message');
 
+    Route::get('/profile/edit', [ProfileController::class, 'showEditProfile'])->name('edit_profile');
+    Route::put('/profile/edit/store', [ProfileController::class, 'updateProfile'])->name('store_profile');
+    Route::put('/profile/edit/storeAcc', [ProfileController::class, 'updateProfileAccounts'])->name('store_profile_acc');
     Route::get('/profile/{user:username}', [ProfileController::class, 'showProfile'])->name('show_profile');
 });
+
 
 // useless routes
 // Just to demo sidebar dropdown links active states.

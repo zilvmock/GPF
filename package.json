@@ -20,6 +20,8 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
+        "filepond": "^4.30.4",
+        "filepond-plugin-file-validate-size": "^2.2.7",
         "laravel-echo": "^1.14.1",
         "pusher-js": "^7.4.0"
     }

@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <h2 class="text-xl font-semibold leading-tight">
-                {{ __('Dashboard') }}
+                {{ __('Profile') }}
             </h2>
         </div>
     </x-slot>
@@ -10,7 +10,7 @@
     <x-layout.layout-card class="flex">
         <div class="overflow-hidden relative w-24 h-24 bg-gray-100 rounded-full dark:bg-gray-600">
             <img class="p-1 w-24 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
-                 src="{{asset('storage/'.$user->avatar)}}"
+                 src="{{asset('storage/avatars/'.auth()->user()->avatar)}}"
                  alt="User Avatar">
         </div>
         <div class="flex-col pl-4">
@@ -35,7 +35,7 @@
             </div>
             @php
                 $platforms = [];
-                array_push($platforms, $user->steam_link, $user->xbox_link, $user->origin_link, $user->epic_link);
+                array_push($platforms, $user->steam_usr, $user->xbox_usr, $user->origin_usr, $user->epic_usr);
             @endphp
             @if(array_filter($platforms, fn($value) => $value !== null))
                 <div class="w-full max-w-sm p-4 border rounded-lg shadow-md sm:p-6 dark:bg-gray-800 dark:border-gray-700">
@@ -43,41 +43,65 @@
                         My Gaming Platforms
                     </h5>
                     <ul class="my-4 space-y-3">
-                        @if($user->steam_link)
+                        @if($user->steam_usr)
                             <li>
-                                <a href="{{$user->steam_link}}" class="flex items-center p-3 font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                                <span onclick="copyToClipboard('steam')"
+                                      class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
                                     <x-icons.steam class="w-6 h-6"/>
-                                    <span class="flex-1 ml-3 whitespace-nowrap">Steam</span>
-                                </a>
+                                    <span class="flex-1 ml-3">
+                                        Steam
+                                        <p id="steam_usr_cp" class="text-sm font-light text-gray-500 dark:text-gray-300">{{$user->steam_usr}}</p>
+                                    </span>
+                                </span>
                             </li>
                         @endif
-                        @if($user->xbox_link)
+                        @if($user->origin_usr)
                         <li>
-                            <a href="{{$user->xbox_link}}" class="flex items-center p-3 font-bold text-gray-900 rounded-lg hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
-                                <x-icons.xbox class="w-6 h-6"/>
-                                <span class="flex-1 ml-3 whitespace-nowrap">XBOX</span>
-                            </a>
-                        </li>
-                        @endif
-                        @if($user->origin_link)
-                        <li>
-                            <a href="{{$user->origin_link}}" class="flex items-center p-3 font-bold text-gray-900 rounded-lg hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                            <span onclick="copyToClipboard('origin')"
+                                  class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
                                 <x-icons.origin class="w-6 h-6"/>
-                                <span class="flex-1 ml-3 whitespace-nowrap">Origin</span>
-                            </a>
+                                <span class="flex-1 ml-3">
+                                    Origin
+                                    <p id="origin_usr_cp" class="text-sm font-light text-gray-500 dark:text-gray-300">{{$user->origin_usr}}</p>
+                                </span>
+                            </span>
                         </li>
                         @endif
-                        @if($user->epic_link)
+                        @if($user->epic_usr)
                         <li>
-                            <a href="{{$user->epic_link}}" class="flex items-center p-3 font-bold text-gray-900 rounded-lg hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                            <span onclick="copyToClipboard('epic')"
+                                  class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
                                 <x-icons.epic class="w-6 h-6"/>
-                                <span class="flex-1 ml-3 whitespace-nowrap">Epic Games</span>
-                            </a>
+                                <span class="flex-1 ml-3">
+                                    Epic Games
+                                    <p id="epic_usr_cp" class="text-sm font-light text-gray-500 dark:text-gray-300">{{$user->epic_usr}}</p>
+                                </span>
+                            </span>
                         </li>
+                        @endif
+                        @if($user->xbox_usr)
+                            <li>
+                                <span onclick="copyToClipboard('xbox')"
+                                      class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                                    <x-icons.xbox class="w-6 h-6"/>
+                                    <span class="flex-1 ml-3">
+                                        XBOX
+                                        <p id="xbox_usr_cp" class="text-sm font-light text-gray-500 dark:text-gray-300">{{$user->xbox_usr}}</p>
+                                    </span>
+                                </span>
+                            </li>
                         @endif
                     </ul>
                 </div>
             @endif
         </div>
+        <a href="{{route('edit_profile')}}" class="w-max h-max">
+            <x-heroicon-o-cog class="w-5 h-5 text-gray-400 dark:text-gray-500"/>
+        </a>
     </x-layout.layout-card>
 </x-app-layout>
+<script>
+    function copyToClipboard($id) {
+        navigator.clipboard.writeText(document.getElementById($id+'_usr_cp').innerText);
+    }
+</script>

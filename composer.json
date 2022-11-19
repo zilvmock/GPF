@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.10",
         "mews/purifier": "^3.3",
+        "protonemedia/laravel-verify-new-email": "^1.6",
         "pusher/pusher-php-server": "^7.2"
     },
     "require-dev": {
