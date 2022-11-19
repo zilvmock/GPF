@@ -25,3 +25,8 @@ body::-webkit-scrollbar-thumb {
 ::-webkit-scrollbar-thumb:hover {
     background: #555555;
 }
+
+.filepond--root {
+    max-height: 5em;
+    min-width: 10em;
+}

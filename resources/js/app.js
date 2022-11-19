@@ -3,6 +3,12 @@ import './bootstrap';
 import Alpine from "alpinejs";
 import collapse from "@alpinejs/collapse";
 import PerfectScrollbar from "perfect-scrollbar";
+import * as FilePond from 'filepond';
+import 'filepond/dist/filepond.min.css';
+import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
+
+window.FilePond = FilePond;
+FilePond.registerPlugin(FilePondPluginFileValidateSize);
 
 window.PerfectScrollbar = PerfectScrollbar;
 

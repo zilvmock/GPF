@@ -1,15 +1,18 @@
 <div>
-    <h5 class=""><b>Users</b> <small>({{$users->count()}}/{{$room_size}})</small></h5>
+    <span class="flex items-baseline">
+        <h1 class="font-bold">Users</h1>
+        <small class="text-xs">({{$users->count()}}/{{$room_size}})</small>
+    </span>
     @foreach($users as $user)
         @if($user->id == $owner_id)
             <div class="flex items-center justify-between">
-                <h1 class="mr-1">{{$user->username}}</h1>
+                <h1 class="mr-1"><a href="{{route('show_profile', $user)}}">{{$user->username}}</a></h1>
                 <x-heroicon-s-star class="w-5 text-yellow-300" data-tooltip-target="tooltip-default"/>
                 <x-tooltip>Room Owner</x-tooltip>
             </div>
         @else
             <div class="flex items-center justify-between">
-                <h1 class="mr-1">{{$user->username}}</h1>
+                <h1 class="mr-1"><a href="{{route('show_profile', $user)}}">{{$user->username}}</a></h1>
                 @if(auth()->user()->id == $owner_id)
                     <x-button iconOnly variant="secondary" size="xs" id="kick-usr-{{$user->id}}"
                               data-modal-toggle="popup-modal-{{$user->id}}">
