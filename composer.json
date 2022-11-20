@@ -17,7 +17,8 @@
         "livewire/livewire": "^2.10",
         "mews/purifier": "^3.3",
         "protonemedia/laravel-verify-new-email": "^1.6",
-        "pusher/pusher-php-server": "^7.2"
+        "pusher/pusher-php-server": "^7.2",
+        "ext-pdo": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
