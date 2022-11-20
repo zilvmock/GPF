@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Game;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -19,11 +21,11 @@ class RoomFactory extends Factory
     {
         $title = str_replace('.', '', fake()->unique()->sentence(rand(1, 5)));
         return [
-            'owner_id' => rand(1, config('dbSeed.users')),
-            'game_id' => rand(1, config('dbSeed.games')),
+            'owner_id' => User::select('id')->inRandomOrder()->first(),
+            'game_id' => Game::select('id')->inRandomOrder()->first(),
             'title' => $title,
             'slug' => Str::Slug($title),
-            'size' => rand(1, 4),
+            'size' => rand(2, 4),
         ];
     }
 }

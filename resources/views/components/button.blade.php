@@ -63,23 +63,23 @@
 @if ($href)
     @if ($id == '')
         <a href="{{ $href }}" {{ $attributes->merge(['class' => $classes]) }}>
-            @else
-                <a href="{{ $href }}" {{ $attributes->merge(['class' => $classes, 'id' => $id]) }}>
-                    @endif
-                    {{ $slot }}
-                    @if($iconOnly)
-                        <span class="sr-only">{{ $srText ?? '' }}</span>
-                    @endif
-                </a>
-                @else
-                    @if ($id == '')
-                        <button {{ $attributes->merge(['class' => $classes]) }}>
-                            @else
-                                <button {{ $attributes->merge(['class' => $classes, 'id' => $id]) }}>
-                                    @endif
-                                    {{ $slot }}
-                                    @if($iconOnly)
-                                        <span class="sr-only">{{ $srText ?? '' }}</span>
-                                    @endif
-                                </button>
+    @else
+        <a href="{{ $href }}" {{ $attributes->merge(['class' => $classes, 'id' => $id]) }}>
     @endif
+    {{ $slot }}
+    @if($iconOnly)
+        <span class="sr-only">{{ $srText ?? '' }}</span>
+    @endif
+        </a>
+@else
+    @if ($id == '')
+        <button {{ $attributes->merge(['class' => $classes]) }}>
+    @else
+        <button {{ $attributes->merge(['class' => $classes, 'id' => $id]) }}>
+    @endif
+        {{ $slot }}
+    @if($iconOnly)
+        <span class="sr-only">{{ $srText ?? '' }}</span>
+    @endif
+        </button>
+@endif

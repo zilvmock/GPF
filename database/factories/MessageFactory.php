@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Room;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,8 +19,8 @@ class MessageFactory extends Factory
     public function definition()
     {
         return [
-            'room_id' => rand(1, config('dbSeed.rooms')),
-            'user_id' => rand(1, config('dbSeed.users')),
+            'room_id' => Room::select('id')->inRandomOrder()->first(),
+            'user_id' => User::select('id')->inRandomOrder()->first(),
             'message' => fake()->sentence(rand(1, 10)),
         ];
     }

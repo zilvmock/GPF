@@ -6,6 +6,7 @@ use App\Events\SendMessageEvent;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class MessageController extends Controller
 {
@@ -27,6 +28,7 @@ class MessageController extends Controller
 
         if ($validator->passes()) {
             Message::insert([
+                'id' => Str::uuid(),
                 'room_id' => $room_id,
                 'user_id' => $user_id,
                 'message' => $fieldsToVerify['message'],
@@ -34,7 +36,7 @@ class MessageController extends Controller
                 'updated_at' => now(),
             ]);
             broadcast(new SendMessageEvent($room_id));
-            return back();
+            //return back(); // not needed with AJAX, or rather should return something else
         } else {
             return redirect()->back()->withErrors($validator);
         }

@@ -28,9 +28,13 @@ class ConfirmablePasswordController extends Controller
      */
     public function store(Request $request)
     {
+        $clearedFields = [
+            'password' => strip_tags(clean($request->password)),
+        ];
+
         if (!Auth::guard('web')->validate([
             'email' => $request->user()->email,
-            'password' => $request->password,
+            'password' => $clearedFields['password'],
         ])) {
             throw ValidationException::withMessages([
                 'password' => __('auth.password'),

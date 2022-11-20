@@ -6,7 +6,9 @@ import PerfectScrollbar from "perfect-scrollbar";
 import * as FilePond from 'filepond';
 import 'filepond/dist/filepond.min.css';
 import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
+import jQuery from 'jquery';
 
+window.$ = jQuery;
 window.FilePond = FilePond;
 FilePond.registerPlugin(FilePondPluginFileValidateSize);
 

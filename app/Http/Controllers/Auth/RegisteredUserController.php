@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
@@ -33,16 +34,28 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $clearedFields = [
+            'username' => strip_tags(clean($request->username)),
+            'email' => strip_tags(clean($request->email)),
+            'password' => strip_tags(clean($request->password)),
+            'password_confirmation' => strip_tags(clean($request->password)),
+        ];
+
+        $validator = Validator::make($clearedFields, [
             'username' => ['unique:users', 'required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password_confirmation' => ['required', 'same:password', Rules\Password::defaults()],
         ]);
 
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
         $user = User::create([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'username' => $clearedFields['username'],
+            'email' => $clearedFields['email'],
+            'password' => Hash::make($clearedFields['password']),
         ]);
 
         event(new Registered($user));

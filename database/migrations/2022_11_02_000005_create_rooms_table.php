@@ -13,11 +13,11 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('rooms', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('owner_id');
-            $table->unsignedBigInteger('game_id');
+            $table->uuid('id')->primary();
+            $table->uuid('owner_id');
+            $table->uuid('game_id');
             $table->longText('title');
-            $table->string('slug');
+            $table->string('slug', 64);
             $table->integer('size');
             $table->boolean('is_locked')->default(false);
             $table->timestamps();

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\BrowseController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
@@ -22,6 +23,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/check-username', [AvailabilityController::class, 'checkUsername'])->name('check_username');
 Route::post('/upload', [UploadController::class, 'store']);
 
 Route::middleware(['auth', 'verified', 'noPendingVerify'])->group(function () {

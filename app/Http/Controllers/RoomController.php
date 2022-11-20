@@ -24,7 +24,7 @@ class RoomController extends Controller
         $gameId = $request->id;
         $game = Game::select('id', 'slug')->where('id', $gameId)->first();
 
-        if (auth()->user()->current_room_id != 0) {
+        if (auth()->user()->current_room_id != null) {
             return back()->with('error', 'You cannot create a new room while you are in another room!');
         }
 
@@ -53,7 +53,9 @@ class RoomController extends Controller
         ]);
 
         if ($validator->passes()) {
-            $room_id = Room::insertGetId([
+            $room_id = Str::uuid();
+             Room::insert([
+                'id' => $room_id,
                 'owner_id' => $owner_id,
                 'game_id' => $game_id,
                 'title' => $fieldsToVerify['title'],
@@ -110,7 +112,7 @@ class RoomController extends Controller
 
         $user = auth()->user();
 
-        if ($user->current_room_id != 0 && $user->current_room_id == $room_id) {
+        if ($user->current_room_id != null && $user->current_room_id == $room_id) {
             return redirect()->route('show_room', [
                 'game' => $game_slug,
                 'id' => $game_id,
@@ -154,7 +156,7 @@ class RoomController extends Controller
 
         $user = auth()->user();
 
-        $user->current_room_id = 0;
+        $user->current_room_id = null;
         $user->save();
 
         broadcast(new LeaveRoomEvent($room_id, $user->username));
@@ -172,7 +174,7 @@ class RoomController extends Controller
         $user_id = $request->user;
 
         $user = User::select('id', 'username', 'current_room_id')->where('id', $user_id)->first();
-        $user->current_room_id = 0;
+        $user->current_room_id = null;
         $user->save();
 
         broadcast(new KickFromRoomEvent($room_id, $user->username));
@@ -187,7 +189,7 @@ class RoomController extends Controller
         $game_id = $request->id;
 
         User::where('current_room_id', $room_id)->update([
-            'current_room_id' => 0,
+            'current_room_id' => null,
         ]);
         Room::where('id', $room_id)->delete();
 
