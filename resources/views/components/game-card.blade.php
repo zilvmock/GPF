@@ -1,5 +1,43 @@
-<a id="game-card-{{$gameId}}" href="{{$route}}"
-   class="block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-    <h5 class="text-center mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{$title}}</h5>
-    <p class="font-normal text-gray-700 dark:text-gray-400">{{$description}}</p>
-</a>
+@props(['genres'])
+<div class="flex-col h-max">
+    <a id="game-card-{{$gameId}}" href="{{$route}}"
+       style="background-image: url({{$cover}});
+       background-size: contain;
+       background-repeat: no-repeat;
+       aspect-ratio: 9/12;"
+       class="block h-max p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md
+              dark:bg-gray-800 dark:border-gray-700 flex items-center justify-center">
+        <p class="hidden text-center text-white">
+            {{--            {!! Str::words($summary, 20) !!}<br>--}}
+            <x-button class="mt-4" type="button" variant="primary" size="sm">
+                Browse Rooms
+            </x-button>
+        </p>
+    </a>
+    <p class="mt-2 text-gray-900 dark:text-gray-400">Rooms: {{$room_count}}</p>
+    <h5 class="mb-2 text-xl tracking-tight text-gray-900 dark:text-white">{{$name}}</h5>
+    <div class="flex flex-wrap">
+        @php($genres = explode(', ', $genres))
+        @foreach($genres as $genre)
+            <span
+                class="bg-gray-100 text-gray-800 font-bold text-sm font-medium mr-2 mt-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                {!! $genre !!}
+            </span>
+        @endforeach
+    </div>
+</div>
+<script type="module">
+    // TODO: tends to bug out, find a better way
+    document.getElementById('game-card-{{$gameId}}').addEventListener('mouseenter', function () {
+        this.children[0].classList.remove('hidden');
+        this.style.backgroundBlendMode = 'multiply';
+        this.style.backgroundColor = 'rgb(85,85,85)';
+        this.style.filter = 'brightness(0.8)';
+    });
+    document.getElementById('game-card-{{$gameId}}').addEventListener('mouseleave', function () {
+        this.children[0].classList.add('hidden');
+        this.style.backgroundBlendMode = 'normal';
+        this.style.backgroundColor = 'transparent';
+        this.style.filter = '';
+    });
+</script>

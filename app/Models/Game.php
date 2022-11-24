@@ -10,7 +10,7 @@ class Game extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = ['title', 'slug', 'genre', 'description'];
+    protected $fillable = ['name', 'slug', 'genres', 'summary', 'cover'];
 
     public function room()
     {

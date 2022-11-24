@@ -14,10 +14,11 @@ return new class extends Migration {
     {
         Schema::create('games', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('title', 64);
-            $table->string('slug', 64);
-            $table->string('genre', 64);
-            $table->longText('description');
+            $table->string('name');
+            $table->string('slug');
+            $table->longText('genres');
+            $table->longText('summary');
+            $table->string('cover');
             $table->timestamps();
         });
     }
