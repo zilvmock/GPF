@@ -5,7 +5,7 @@
              {{auth()->user()->current_room_id == $room->id ? "bg-gradient-to-br from-purple-500/50 dark:bg-gray-800" : "dark:bg-gray-800"}}
              dark:border-gray-700">
             <div class="flex items-center">
-                <span class="flex flex-col justify-items-center items-center w-10 mr-4
+                <span class="flex flex-col justify-items-center items-center w-12 mr-4
                      {{$room->users_count >= $room->size ? "bg-gradient-to-br from-red-500/50 dark:bg-gray-800" : "bg-gray-100"}}
                       text-gray-800 text-xs font-semibold px-2 py-1 rounded dark:bg-gray-700 dark:text-gray-300">
                     <x-heroicon-o-user-group class="w-5"/>
@@ -14,7 +14,7 @@
                     </small>
                 </span>
                 <h1 id="room-{{$room->id}}-title"
-                    class="text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+                    class="w-11/12 mr-4 md:text-lg text-sm font-bold break-all tracking-tight text-gray-900 dark:text-white">
                     {{$room->title}}
                 </h1>
             </div>
@@ -22,19 +22,19 @@
                 @if ($room->users_count >= $room->size && auth()->user()->current_room_id != $room->id)
                     <x-button data-tooltip-target="tooltip-default" variant="primary" size="sm" disabled>
                         <x-heroicon-o-arrow-left-on-rectangle class="w-5"/>
-                        Join Room
+                        Join
                     </x-button>
                     <x-tooltip>Full</x-tooltip>
                 @elseif($room->is_locked && auth()->user()->current_room_id != $room->id)
                     <x-button data-tooltip-target="tooltip-default" variant="primary" size="sm" disabled>
                         <x-heroicon-s-lock-closed class="w-5 text-red-400"/>
-                        Join Room
+                        Join
                     </x-button>
                     <x-tooltip>Locked</x-tooltip>
                 @elseif (auth()->user()->current_room_id != 0 && auth()->user()->current_room_id != $room->id)
                     <x-button variant="primary" size="sm" type="none" data-modal-toggle="popup-modal-{{$room->id}}">
                         <x-heroicon-o-arrow-left-on-rectangle class="w-5"/>
-                        Join Room
+                        Join
                     </x-button>
                     <form action="{{route('join_room', ['room' => $room->id, 'game' => $game_slug, 'id' => $game_id])}}"
                           method="post">
@@ -79,7 +79,7 @@
                         @method('GET')
                         <x-button variant="primary" size="sm">
                             <x-heroicon-o-arrow-left-on-rectangle class="w-5"/>
-                            Join Room
+                            Join
                         </x-button>
                     </form>
                 @endif

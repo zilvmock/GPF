@@ -1,32 +1,33 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <h2 class="text-xl font-semibold leading-tight">
+            <h2 class="text-3xl font-semibold leading-tight">
                 {{ __('Edit Profile') }}
             </h2>
         </div>
     </x-slot>
-    <x-layout.layout-card class="md:flex-col md:space-x-0 space-x-2 md:space-y-2 space-y-0">
-        <a href="{{route('show_profile', auth()->user()->username)}}"
-           class="md:mb-0 md:ml-0 mb-2 ml-2 border border-gray-500 rounded p-1 w-max h-max flex items-center text-gray-400 dark:text-gray-500">
+    <x-layout.layout-card class="md:flex-col md:space-x-0 space-x-2 space-y-2">
+        <x-button type="button" variant="primary" size="sm" href="{{route('show_profile', auth()->user()->username)}}"
+                  class="md:ml-0 md:mb-0 ml-2 mb-2">
             <x-heroicon-o-arrow-left class="w-5 h-5"/>
             Profile
-        </a>
+        </x-button>
         <x-layout.layout-card-2>
             <form method="POST" action="{{route('store_profile')}}">
                 @csrf
                 @method('PUT')
                 <div class="xl:grid gap-6 gap-y-3 grid-cols-3">
-                    <div class="grid grid-cols-1  grid-rows-2 place-items-center">
-                        <div class="overflow-hidden relative w-24 h-24 bg-gray-100 rounded-full dark:bg-gray-600">
-                            <img class="p-1 w-24 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+                    <div class="grid grid-cols-1 grid-rows-2 place-items-center">
+                        <div
+                            class="sm:mx-0 mx-auto overflow-hidden relative w-24 h-24 bg-gray-100 rounded-full dark:bg-gray-600">
+                            <img class="p-1 w-24 h-24 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
                                  src="{{asset('storage/avatars/'.auth()->user()->avatar)}}"
                                  alt="User Avatar">
                         </div>
                         <input class="h-full w-full my-10" id="avatar" type="file" name="avatar" />
                     </div>
                     <div class="xl:pt-0 pt-8">
-                        <!-- Username -->
+                        {{-- Username --}}
                         <div class="space-y-2">
                             <x-label for="username" :value="__('Username')"/>
                             <x-input-with-icon-wrapper>
@@ -35,13 +36,14 @@
                                 </x-slot>
                                 <x-input withicon id="name" class="block w-full" type="text" name="username"
                                          :value="old('username', auth()->user()->username)"
-                                         required autofocus placeholder="{{ __('Username') }}"/>
+                                         required autofocus placeholder="{{ __('Username') }}"
+                                         maxlength="16"/>
                             </x-input-with-icon-wrapper>
                             @error('username')
                             <x-error-alert>{{$message}}</x-error-alert>
                             @enderror
                         </div>
-                        <!-- Email Address -->
+                        {{-- Email Address --}}
                         <div class="space-y-2 pt-4">
                             <x-label for="email" :value="__('Email')"/>
                             <x-input-with-icon-wrapper>
@@ -49,7 +51,9 @@
                                     <x-heroicon-o-mail aria-hidden="true" class="w-5 h-5"/>
                                 </x-slot>
                                 <x-input withicon id="email" class="block w-full" type="email" name="email"
-                                         :value="old('email', auth()->user()->email)" required placeholder="{{ __('Email') }}"/>
+                                         :value="old('email', auth()->user()->email)" required
+                                         placeholder="{{ __('Email') }}"
+                                         maxlength="32"/>
                             </x-input-with-icon-wrapper>
                             @error('email')
                             <x-error-alert>{{$message}}</x-error-alert>
@@ -57,7 +61,7 @@
                         </div>
                     </div>
                     <div>
-                        <!-- Password -->
+                        {{-- Password --}}
                         <div class="space-y-2 xl:pt-0 pt-4">
                             <x-label for="password" :value="__('Password')"/>
                             <x-input-with-icon-wrapper>
@@ -65,14 +69,15 @@
                                     <x-heroicon-o-lock-closed aria-hidden="true" class="w-5 h-5"/>
                                 </x-slot>
                                 <x-input withicon id="password" class="block w-full" type="password" name="password"
-                                         placeholder="{{ __('Password') }}"/>
+                                         placeholder="{{ __('Password') }}"
+                                         maxlength="32"/>
                             </x-input-with-icon-wrapper>
                             @error('password')
                             <x-error-alert>{{$message}}</x-error-alert>
                             @enderror
                         </div>
 
-                        <!-- Confirm Password -->
+                        {{-- Confirm Password --}}
                         <div class="space-y-2 pt-4 xl:pb-0 pb-6">
                             <x-label for="password_confirmation" :value="__('Confirm Password')"/>
                             <x-input-with-icon-wrapper>
@@ -80,10 +85,13 @@
                                     <x-heroicon-o-lock-closed aria-hidden="true" class="w-5 h-5"/>
                                 </x-slot>
                                 <x-input withicon id="password_confirmation" class="block w-full" type="password"
-                                         name="password_confirmation" placeholder="{{ __('Confirm Password') }}"/>
+                                         name="password_confirmation" placeholder="{{ __('Confirm Password') }}"
+                                         maxlength="32"/>
                             </x-input-with-icon-wrapper>
                             @error('password_confirmation')
-                            <x-error-alert>{{$message}}</x-error-alert>
+                            <div class="mb-4">
+                                <x-error-alert>{{$message}}</x-error-alert>
+                            </div>
                             @enderror
                         </div>
                     </div>
@@ -101,7 +109,7 @@
                 @method('PUT')
                 <div class="xl:grid gap-6 gap-y-3 grid-cols-2">
                     <div class="xl:pt-0 pt-8">
-                        <!-- Steam -->
+                        {{-- Steam --}}
                         <div class="space-y-2">
                             <x-label for="steam" :value="__('Steam')"/>
                             <x-input-with-icon-wrapper>
@@ -115,7 +123,7 @@
                             </x-input-with-icon-wrapper>
                         </div>
 
-                        <!-- Origin -->
+                        {{-- Origin --}}
                         <div class="space-y-2 pt-4">
                             <x-label for="origin" :value="__('Origin')"/>
                             <x-input-with-icon-wrapper>
@@ -130,7 +138,7 @@
                         </div>
                     </div>
                     <div>
-                        <!-- Epic Games -->
+                        {{-- Epic Games --}}
                         <div class="space-y-2 xl:pt-0 pt-4">
                             <x-label for="epic" :value="__('Epic Games')"/>
                             <x-input-with-icon-wrapper>
@@ -144,7 +152,7 @@
                             </x-input-with-icon-wrapper>
                         </div>
 
-                        <!-- XBOX -->
+                        {{-- XBOX --}}
                         <div class="space-y-2 pt-4">
                             <x-label for="xbox" :value="__('XBOX')"/>
                             <x-input-with-icon-wrapper>

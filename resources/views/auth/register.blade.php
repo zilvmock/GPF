@@ -1,12 +1,12 @@
 <x-guest-layout>
     <x-auth-card>
-        <!-- Validation Errors -->
+        {{-- Validation Errors --}}
         <x-auth-validation-errors class="mb-4" :errors="$errors"/>
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
             <div class="grid gap-6">
-                <!-- Username -->
+                {{-- Username --}}
                 <div class="space-y-2">
                     <x-label for="username" :value="__('Username')"/>
                     <x-input-with-icon-wrapper>
@@ -53,7 +53,7 @@
                     </x-input-with-icon-wrapper>
                 </div>
 
-                <!-- Email Address -->
+                {{-- Email Address --}}
                 <div class="space-y-2">
                     <x-label for="email" :value="__('Email')"/>
                     <x-input-with-icon-wrapper>
@@ -65,7 +65,7 @@
                     </x-input-with-icon-wrapper>
                 </div>
 
-                <!-- Password -->
+                {{-- Password --}}
                 <div class="space-y-2">
                     <x-label for="password" :value="__('Password')"/>
                     <x-input-with-icon-wrapper>
@@ -77,7 +77,7 @@
                     </x-input-with-icon-wrapper>
                 </div>
 
-                <!-- Confirm Password -->
+                {{-- Confirm Password --}}
                 <div class="space-y-2">
                     <x-label for="password_confirmation" :value="__('Confirm Password')"/>
                     <x-input-with-icon-wrapper>

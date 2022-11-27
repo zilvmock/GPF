@@ -8,26 +8,27 @@
        class="block h-max p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md
               dark:bg-gray-800 dark:border-gray-700 flex items-center justify-center">
         <p class="hidden text-center text-white">
-            {{--            {!! Str::words($summary, 20) !!}<br>--}}
             <x-button class="mt-4" type="button" variant="primary" size="sm">
                 Browse Rooms
             </x-button>
         </p>
     </a>
-    <p class="mt-2 text-gray-900 dark:text-gray-400">Rooms: {{$room_count}}</p>
+    <div class="flex justify-center">
+        <p class="mt-2 text-gray-900 dark:text-purple-400 font-bold">Rooms: <span class="text-lg">{{$room_count}}</span>
+        </p>
+    </div>
     <h5 class="mb-2 text-xl tracking-tight text-gray-900 dark:text-white">{{$name}}</h5>
     <div class="flex flex-wrap">
         @php($genres = explode(', ', $genres))
         @foreach($genres as $genre)
-            <span
-                class="bg-gray-100 text-gray-800 font-bold text-sm font-medium mr-2 mt-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+            <a href="{{route('browse', ['search' => $genre])}}"
+               class="bg-gray-100 text-gray-800 font-bold text-sm font-medium mr-2 mt-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
                 {!! $genre !!}
-            </span>
+            </a>
         @endforeach
     </div>
 </div>
 <script type="module">
-    // TODO: tends to bug out, find a better way
     document.getElementById('game-card-{{$gameId}}').addEventListener('mouseenter', function () {
         this.children[0].classList.remove('hidden');
         this.style.backgroundBlendMode = 'multiply';

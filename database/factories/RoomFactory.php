@@ -20,9 +20,12 @@ class RoomFactory extends Factory
     public function definition()
     {
         $title = str_replace('.', '', fake()->unique()->sentence(rand(1, 5)));
+        $userIds = User::select('id')->pluck('id')->toArray();
+        $gameIds = Game::select('id')->pluck('id')->toArray();
+
         return [
-            'owner_id' => User::select('id')->inRandomOrder()->first(),
-            'game_id' => Game::select('id')->inRandomOrder()->first(),
+            'owner_id' => $userIds[rand(0, count($userIds) - 1)],
+            'game_id' => $gameIds[rand(0, count($gameIds) - 1)],
             'title' => $title,
             'slug' => Str::Slug($title),
             'size' => rand(2, 4),

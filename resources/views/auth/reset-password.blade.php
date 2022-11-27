@@ -1,15 +1,15 @@
 <x-guest-layout>
     <x-auth-card>
-        <!-- Validation Errors -->
+        {{-- Validation Errors --}}
         <x-auth-validation-errors class="mb-4" :errors="$errors"/>
 
         <form method="POST" action="{{ route('password.update') }}">
             @csrf
 
-            <!-- Password Reset Token -->
+            {{-- Password Reset Token --}}
             <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-            <!-- Email Address -->
+            {{-- Email Address --}}
             <div>
                 <x-label for="email" :value="__('Email')"/>
 
@@ -17,14 +17,14 @@
                          :value="old('email', $request->email)" required autofocus/>
             </div>
 
-            <!-- Password -->
+            {{-- Password --}}
             <div class="mt-4">
                 <x-label for="password" :value="__('Password')"/>
 
                 <x-input id="password" class="block w-full mt-1" type="password" name="password" required/>
             </div>
 
-            <!-- Confirm Password -->
+            {{-- Confirm Password --}}
             <div class="mt-4">
                 <x-label for="password_confirmation" :value="__('Confirm Password')"/>
 

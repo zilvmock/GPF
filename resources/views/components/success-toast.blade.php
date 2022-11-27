@@ -2,7 +2,7 @@
     <div x-data="{show: true}" x-show="show" style="display: none"
          x-init="setTimeout(() => show = false, 60000)"
          id="toast-success"
-         class="absolute bottom-5 right-5 flex items-center p-4 mb-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+         class="z-10 fixed bottom-5 right-5 flex items-center p-4 mb-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
          role="alert">
         <div
             class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">

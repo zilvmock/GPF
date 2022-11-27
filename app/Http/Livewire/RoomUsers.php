@@ -37,7 +37,7 @@ class RoomUsers extends Component
 
     public function render()
     {
-        $users = User::select('id', 'username')->where('current_room_id', $this->room_id)->get();
+        $users = User::select('id', 'username', 'avatar')->where('current_room_id', $this->room_id)->get();
         $owner_id = Room::where('id', $this->room_id)->first()->owner_id;
 
         return view('livewire.room-users', [

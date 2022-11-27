@@ -14,7 +14,7 @@ class CreatePendingUserEmailsTable extends Migration
     public function up()
     {
         Schema::create('pending_user_emails', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->morphs('user');
             $table->string('email')->index();
             $table->string('token');

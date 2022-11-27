@@ -57,7 +57,7 @@ class Chat extends Component
 
     public function render()
     {
-        $messages = Message::where('room_id', $this->room_id)->get();
+        $messages = Message::where('room_id', $this->room_id)->oldest()->get();
         return view('livewire.chat', [
             'messages' => $messages,
         ]);

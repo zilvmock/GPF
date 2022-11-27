@@ -13,9 +13,10 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->uuid('id')->primary()->autoIncrement();
-            $table->uuid('current_room_id')->nullable();
+            $table->id();
+            $table->unsignedBigInteger('current_room_id')->nullable();
             $table->string('username', 32)->unique();
+            $table->timestamp('username_changed_at')->nullable();
             $table->string('avatar')->default('default/no-avatar.svg');
             $table->string('email', 128)->unique();
             $table->timestamp('email_verified_at')->nullable();

@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\TemporaryFile;
 use App\Models\User;
 use App\Rules\NotURLInvokableRule;
+use App\Rules\UsernameCanBeChangedInvokableRule;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -42,7 +43,7 @@ class ProfileController extends Controller
             'password_confirmation' => strip_tags(clean($request->password_confirmation)),
         ];
 
-        // Ignore if fields hasn't changed
+        /* Ignore if fields hasn't changed */
         if ($user->username == $request->username) {
             Arr::forget($fields, ['username']);
         }
@@ -58,27 +59,33 @@ class ProfileController extends Controller
         }
 
         $validator = Validator::make($fields, [
-            'username' => ['max:2048', 'min:4', 'unique:users,username'],
-            'email' => ['max:2048', 'email', 'unique:users,email'],
-            'password' => ['required_with:password_confirmation', 'max:2048', 'min:8'],
-            'password_confirmation' => ['max:2048', 'min:8', 'same:password'],
+            'username' => ['max:16', 'min:4', 'unique:users,username', new usernameCanBeChangedInvokableRule],
+            'email' => ['max:32', 'email', 'unique:users,email'],
+            'password' => ['required_with:password_confirmation', 'max:32', 'min:6'],
+            'password_confirmation' => ['max:32', 'min:6', 'same:password'],
         ], [
             'required' => 'The :attribute field can not be blank!',
         ]);
 
         if ($validator->passes()) {
             if ($temporaryFile) {
+                Debugbar::addMessage("Temporary file exists");
                 rename(
-                    storage_path('app/public/avatars/tmp/'.$temporaryFile->folder.'/'.$temporaryFile->filename),
-                    storage_path('app/public/avatars/'.$temporaryFile->filename)
+                    storage_path('app/public/avatars/tmp/' . $temporaryFile->folder . '/' . $temporaryFile->filename),
+                    storage_path('app/public/avatars/' . $temporaryFile->filename)
                 );
+                Debugbar::addMessage("Renamed file");
                 $fields['avatar'] = $temporaryFile->filename;
-                rmdir(storage_path('app/public/avatars/tmp/'.$request->avatar));
+                rmdir(storage_path('app/public/avatars/tmp/' . $request->avatar));
                 $temporaryFile->delete();
+                Debugbar::addMessage("Done");
             }
             if (array_key_exists('password', $fields)) {
                 Arr::forget($fields, ['password_confirmation']);
                 $fields['password'] = Hash::make($fields['password']);
+            }
+            if (array_key_exists('username', $fields)) {
+                $fields['username_changed_at'] = Carbon::now()->toDateTimeString();
             }
 
             $email = '';

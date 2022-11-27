@@ -15,8 +15,11 @@ class GamesSeeder extends Seeder
      */
     public function run()
     {
-        Game::factory()->times(config('dbSeed.games'))->create();
-        /* work around doing multiple seeds */
-        Artisan::call('cache:clear');
+        try {
+            Game::factory()->times(config('dbSeed.games'))->create();
+        } catch (\Exception $e) {
+            /* work around doing multiple seeds */
+            Artisan::call('cache:clear');
+        }
     }
 }

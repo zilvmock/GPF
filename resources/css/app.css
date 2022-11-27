@@ -26,6 +26,24 @@ body::-webkit-scrollbar-thumb {
     background: #555555;
 }
 
+.improve-scroll-bar {
+    /*noinspection CssInvalidPropertyValue*/
+    overflow: overlay;
+}
+
+.improve-scroll-bar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.improve-scroll-bar::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #a9a9a9;
+}
+
+.improve-scroll-bar::-webkit-scrollbar-thumb:hover {
+    background: #555555;
+}
+
 .filepond--root {
     max-height: 5em;
     min-width: 10em;

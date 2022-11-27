@@ -18,9 +18,12 @@ class MessageFactory extends Factory
      */
     public function definition()
     {
+        $userIds = User::select('id')->pluck('id')->toArray();
+        $roomIds = Room::select('id')->pluck('id')->toArray();
+
         return [
-            'room_id' => Room::select('id')->inRandomOrder()->first(),
-            'user_id' => User::select('id')->inRandomOrder()->first(),
+            'room_id' => $roomIds[rand(0, count($roomIds) - 1)],
+            'user_id' => $userIds[rand(0, count($userIds) - 1)],
             'message' => fake()->sentence(rand(1, 10)),
         ];
     }

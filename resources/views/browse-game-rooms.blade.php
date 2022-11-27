@@ -41,11 +41,14 @@
                 <x-slot:room_id>{{auth()->user()->current_room_id}}</x-slot:room_id>
             </x-current-room-card>
         @else
-            <x-button type="button" variant="primary" size="sm"
-                      href="{{route('create_new_room', ['game' => $game_slug, 'id' => $game_id])}}">
-                <x-heroicon-o-plus-sm class="w-5"/>
-                Create Room
-            </x-button>
+            <div class="flex justify-center items-center pb-2">
+                <x-button type="button" variant="primary" size="sm"
+                          class="sm:px-12"
+                          href="{{route('create_new_room', ['game' => $game_slug, 'id' => $game_id])}}">
+                    <x-heroicon-o-plus-sm class="w-5"/>
+                    Create Room
+                </x-button>
+            </div>
         @endif
         @livewire('rooms', [
            'game_slug' => $game_slug,

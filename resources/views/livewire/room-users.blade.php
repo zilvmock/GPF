@@ -1,24 +1,37 @@
-<div>
-    <span class="flex items-baseline">
-        <h1 class="font-bold">Users</h1>
-        <small class="text-xs">({{$users->count()}}/{{$room_size}})</small>
+<div class="w-full">
+    <span class="flex items-center space-x-1">
+        <x-heroicon-o-user-group class="w-6"/>
+        <h1 class="text-xl font-bold">Users</h1>
+        <small class="text-base">({{$users->count()}}/{{$room_size}})</small>
     </span>
     @foreach($users as $user)
         @if($user->id == $owner_id)
-            <div class="flex items-center justify-between">
-                <h1 class="mr-1"><a href="{{route('show_profile', $user)}}">{{$user->username}}</a></h1>
-                <x-heroicon-s-star class="w-5 text-yellow-300" data-tooltip-target="tooltip-default"/>
-                <x-tooltip>Room Owner</x-tooltip>
+            <div class="flex text-lg items-center my-2">
+                <img class="p-1 w-8 h-8 rounded-full ring-2 ring-gray-300 dark:ring-gray-500 mr-2"
+                     src="{{asset('storage/avatars/'.$user->avatar)}}"
+                     alt="User Avatar">
+                <div class="flex justify-between space-x-1">
+                    <h1 class="mr-1 hover:text-purple-400"><a
+                            href="{{route('show_profile', $user)}}">{{$user->username}}</a></h1>
+                    <x-heroicon-s-star class="w-6 text-yellow-300" data-tooltip-target="tooltip-default"/>
+                    <x-tooltip>Room Owner</x-tooltip>
+                </div>
             </div>
         @else
-            <div class="flex items-center justify-between">
-                <h1 class="mr-1"><a href="{{route('show_profile', $user)}}">{{$user->username}}</a></h1>
-                @if(auth()->user()->id == $owner_id)
-                    <x-button iconOnly variant="secondary" size="xs" id="kick-usr-{{$user->id}}"
-                              data-modal-toggle="popup-modal-{{$user->id}}">
-                        <x-heroicon-o-x class="w-4 text-red-500"/>
-                    </x-button>
-                @endif
+            <div class="flex items-center my-2">
+                <img class="p-1 w-8 h-8 rounded-full ring-2 ring-gray-300 dark:ring-gray-500 mr-2"
+                     src="{{asset('storage/avatars/'.$user->avatar)}}"
+                     alt="User Avatar">
+                <div class="flex justify-between space-x-2">
+                    <h1 class="mr-1 hover:text-purple-400"><a
+                            href="{{route('show_profile', $user)}}">{{$user->username}}</a></h1>
+                    @if(auth()->user()->id == $owner_id)
+                        <x-button iconOnly variant="secondary" size="xs" id="kick-usr-{{$user->id}}"
+                                  data-modal-toggle="popup-modal-{{$user->id}}">
+                            <x-heroicon-o-x class="w-5 text-red-500"/>
+                        </x-button>
+                    @endif
+                </div>
             </div>
             @if(auth()->user()->id == $owner_id)
                 <form action="{{route('kick_from_room', ['room' => $room_id, 'user' => $user->id])}}" method="post">

@@ -8,19 +8,23 @@ use Illuminate\Http\Request;
 
 class BrowseController extends Controller
 {
-    function showGames()
+    function showGames(Request $request)
     {
         $games = Game::select('id', 'name', 'slug', 'genres', 'summary', 'cover')->get();
-        $rooms = Room::select('id', 'game_id')->get();
+
+        if ($request->has('search')) {
+            $games = Game::filter($request->search)->get();
+        }
 
         /* sort by room count and add room count to each game */
-        $games = $games->sortByDesc(function ($game) use ($rooms) {
-            $game->room_count = $rooms->where('game_id', $game->id)->count();
+        $games = $games->sortByDesc(function ($game) {
+            $game->room_count = Room::select('game_id')->where('game_id', $game->id)->count();
             return $game->room_count;
         });
 
         return view('browse', [
             'games' => $games->paginate(24),
+            'searchValue' => $request->search ?? ''
         ]);
     }
 

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('temporary_files', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('folder');
             $table->string('filename');
             $table->timestamps();

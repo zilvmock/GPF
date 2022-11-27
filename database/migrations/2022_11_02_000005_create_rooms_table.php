@@ -13,16 +13,16 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('rooms', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('owner_id');
-            $table->uuid('game_id');
+            $table->id();
+            $table->unsignedBigInteger('owner_id');
+            $table->unsignedBigInteger('game_id');
             $table->longText('title');
-            $table->string('slug', 64);
+            $table->string('slug');
             $table->integer('size');
             $table->boolean('is_locked')->default(false);
             $table->timestamps();
 
-            $table->foreign('game_id')->references('id')->on('games')->onDelete('cascade');
+            $table->foreign('game_id')->references('id')->on('games')->cascadeOnDelete();
             $table->foreign('owner_id')->references('id')->on('users');
         });
     }

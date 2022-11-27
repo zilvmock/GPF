@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <h2 class="text-xl font-semibold leading-tight">
+            <h2 class="text-3xl font-semibold leading-tight">
                 {{ __('Create New Room') }}
             </h2>
         </div>
@@ -13,7 +13,7 @@
             <div class="flex-col space-y-2">
                 <div>
                     <x-label>Room Title</x-label>
-                    <x-input type="text" name="title" maxlength="128" placeholder="Room Title"/>
+                    <x-input type="text" name="title" maxlength="128" placeholder="Room Title" maxlength="64"/>
                     @error('title')
                     <x-error-alert>{{$message}}</x-error-alert>
                     @enderror

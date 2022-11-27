@@ -1,15 +1,15 @@
 <x-guest-layout>
     <x-auth-card>
-        <!-- Session Status -->
+        {{-- Session Status --}}
         <x-auth-session-status class="mb-4" :status="session('status')"/>
 
-        <!-- Validation Errors -->
+        {{-- Validation Errors --}}
         <x-auth-validation-errors class="mb-4" :errors="$errors"/>
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="grid gap-6">
-                <!-- Email Address -->
+                {{-- Email Address --}}
                 <div class="space-y-2">
                     <x-label for="email" :value="__('Email')"/>
 
@@ -22,7 +22,7 @@
                     </x-input-with-icon-wrapper>
                 </div>
 
-                <!-- Password -->
+                {{-- Password --}}
                 <div class="space-y-2">
                     <x-label for="password" :value="__('Password')"/>
 
@@ -35,7 +35,7 @@
                     </x-input-with-icon-wrapper>
                 </div>
 
-                <!-- Remember Me -->
+                {{-- Remember Me --}}
                 <div class="flex items-center justify-between">
                     <label for="remember_me" class="inline-flex items-center">
                         <input id="remember_me" type="checkbox"

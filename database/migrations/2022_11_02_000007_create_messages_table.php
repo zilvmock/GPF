@@ -13,9 +13,9 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('messages', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('room_id');
-            $table->uuid('user_id');
+            $table->id();
+            $table->unsignedBigInteger('room_id');
+            $table->unsignedBigInteger('user_id');
             $table->longText('message');
             $table->boolean('is_system_message')->default(false);
             $table->timestamps();

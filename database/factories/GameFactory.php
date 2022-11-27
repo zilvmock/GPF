@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 use MarcReichel\IGDBLaravel\Models\Game;
 
 /**
@@ -26,7 +25,6 @@ class GameFactory extends Factory
 
         if ($multiplayerGames) {
             return [
-                'id' => $multiplayerGames[$this->iterNum]['id'],
                 'name' => $multiplayerGames[$this->iterNum]['name'],
                 'slug' => $multiplayerGames[$this->iterNum]['slug'],
                 'genres' => $multiplayerGames[$this->iterNum]['genres'],
@@ -55,20 +53,6 @@ class GameFactory extends Factory
             ->orWhere('multiplayer_modes.dropin', '=', true)
             ->get()
         );
-
-        // TODO: deprecated
-        /* sort out games that have proper multiplayer support */
-//            foreach($games as $game){
-//                if ($game->multiplayer_modes)
-//                    if (array_key_exists('campaigncoop', $game->multiplayer_modes[0])
-//                        && $game->multiplayer_modes[0]['campaigncoop'] === true
-//                        || array_key_exists('lancoop', $game->multiplayer_modes[0])
-//                        && $game->multiplayer_modes[0]['lancoop'] === true
-//                        || array_key_exists('onlinecoop', $game->multiplayer_modes[0])
-//                        && $game->multiplayer_modes[0]['onlinecoop'] === true) {
-//                        $totalGames->push($game);
-//                    }
-//            }
 
         if (count($totalGames->flatten()) < $amount) {
             return $this->getData($totalGames, $amount, $offset + $amount);
@@ -103,7 +87,6 @@ class GameFactory extends Factory
         /* assign proper values */
         $totalGames = $totalGames->map(function ($game) {
             return [
-                'id' => Str::uuid(),
                 'name' => $game['name'],
                 'slug' => $game['slug'],
                 'genres' => $game['genres'],
