@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Message;
 use App\Models\Room;
-use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Chat extends Component
@@ -45,7 +44,6 @@ class Chat extends Component
     public function createNotificationMessage($message)
     {
         Message::insert([
-            'id' => Str::uuid(),
             'room_id' => $this->room_id,
             'user_id' => Room::where('id', $this->room_id)->first()->user->id,
             'message' => $message,

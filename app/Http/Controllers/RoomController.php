@@ -7,8 +7,8 @@ use App\Events\JoinRoomEvent;
 use App\Events\KickFromRoomEvent;
 use App\Events\LeaveRoomEvent;
 use App\Events\LockRoomEvent;
-use App\Events\UpdateRoomsEvent;
 use App\Events\UpdateOwnerEvent;
+use App\Events\UpdateRoomsEvent;
 use App\Models\Game;
 use App\Models\Room;
 use App\Models\User;
@@ -53,19 +53,17 @@ class RoomController extends Controller
         ]);
 
         if ($validator->passes()) {
-            $room_id = Str::uuid();
-             Room::insert([
-                'id' => $room_id,
-                'owner_id' => $owner_id,
-                'game_id' => $game_id,
-                'title' => $fieldsToVerify['title'],
-                'slug' => Str::slug($fieldsToVerify['title']),
-                'size' => $fieldsToVerify['size'],
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+             $roomId = Room::insertGetId([
+                 'owner_id' => $owner_id,
+                 'game_id' => $game_id,
+                 'title' => $fieldsToVerify['title'],
+                 'slug' => Str::slug($fieldsToVerify['title']),
+                 'size' => $fieldsToVerify['size'],
+                 'created_at' => now(),
+                 'updated_at' => now(),
+             ]);
 
-            auth()->user()->current_room_id = $room_id;
+            auth()->user()->current_room_id = $roomId;
             auth()->user()->save();
 
             broadcast(new UpdateRoomsEvent());
@@ -73,7 +71,7 @@ class RoomController extends Controller
             return redirect()->route('show_room', [
                 'game' => Game::where('id', $game_id)->first()->slug,
                 'id' => $game_id,
-                'room' => $room_id,
+                'room' => $roomId,
             ]);
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
