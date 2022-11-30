@@ -14,7 +14,7 @@ return new class extends Migration {
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('current_room_id')->nullable();
+            $table->unsignedBigInteger('current_room_id')->default(0);
             $table->string('username', 32)->unique();
             $table->timestamp('username_changed_at')->nullable();
             $table->string('avatar')->default('default/no-avatar.svg');

@@ -80,6 +80,10 @@ class RoomController extends Controller
 
     public function showRoom(Request $request)
     {
+        if (auth()->user()->current_room_id != $request->room) {
+            return redirect()->back()->with('error', 'You cannot access this room through URL!');
+        }
+
         $game_slug = $request->game;
         $game_id = $request->id;
         $room_id = $request->room;

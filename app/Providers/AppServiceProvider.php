@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -48,5 +49,14 @@ class AppServiceProvider extends ServiceProvider
                 ]
             );
         });
+
+        /**
+         * Meta titles composer for all views.
+         */
+
+        View::composer(
+            'layouts.app',
+            'App\Http\ViewComposers\MetaViewComposer'
+        );
     }
 }

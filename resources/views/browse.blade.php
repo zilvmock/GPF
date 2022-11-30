@@ -7,7 +7,7 @@
         </div>
     </x-slot>
     <x-layout.layout-card>
-        @if(auth()->user()->current_room_id != null)
+        @if(auth()->user()->current_room_id != 0)
             <x-current-room-card>
                 <x-slot:game_slug>{{auth()->user()->room->game->slug}}</x-slot:game_slug>
                 <x-slot:game_id>{{auth()->user()->room->game_id}}</x-slot:game_id>

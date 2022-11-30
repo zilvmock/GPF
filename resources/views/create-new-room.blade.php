@@ -13,7 +13,7 @@
             <div class="flex-col space-y-2">
                 <div>
                     <x-label>Room Title</x-label>
-                    <x-input type="text" name="title" maxlength="128" placeholder="Room Title" maxlength="64"/>
+                    <x-input type="text" name="title" maxlength="128" placeholder="Room Title" maxlength="128"/>
                     @error('title')
                     <x-error-alert>{{$message}}</x-error-alert>
                     @enderror

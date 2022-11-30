@@ -20,7 +20,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()) {
+        return redirect()->route('browse');
+    } else {
+        return view('auth.login');
+    }
 });
 
 Route::get('/check-username', [AvailabilityController::class, 'checkUsername'])->name('check_username');
@@ -30,7 +34,8 @@ Route::middleware(['auth', 'verified', 'noPendingVerify'])->group(function () {
     Route::get('/browse', [BrowseController::class, 'showGames'])->name('browse');
     Route::get('/browse/{game:slug}/{id}/rooms', [BrowseController::class, 'showRooms'])->name('rooms');
     Route::get('/browse/{game:slug}/{id}/create-room', [RoomController::class, 'showCreateNewRoom'])->name('create_new_room');
-    Route::get('/browse/{game:slug}/{id}/{room:id}', [RoomController::class, 'showRoom'])->name('show_room');
+    Route::get('/browse/{game:slug}/{id}/{room:slug}', [RoomController::class, 'showRoom'])->name('show_room');
+//    Route::get('/browse/{room:slug}', [RoomController::class, 'showRoomView'])->name('room_view');
 
     Route::put('/store-room/{game:id}', [RoomController::class, 'storeCreatedRoom'])->name('store_new_room');
     Route::get('/join-room/{room:id}', [RoomController::class, 'joinRoom'])->name('join_room');
@@ -46,20 +51,5 @@ Route::middleware(['auth', 'verified', 'noPendingVerify'])->group(function () {
     Route::put('/profile/edit/storeAcc', [ProfileController::class, 'updateProfileAccounts'])->name('store_profile_acc');
     Route::get('/profile/{user:username}', [ProfileController::class, 'showProfile'])->name('show_profile');
 });
-
-
-// useless routes
-// Just to demo sidebar dropdown links active states.
-Route::get('/buttons/text', function () {
-    return view('buttons-showcase.text');
-})->middleware(['auth'])->name('buttons.text');
-
-Route::get('/buttons/icon', function () {
-    return view('buttons-showcase.icon');
-})->middleware(['auth'])->name('buttons.icon');
-
-Route::get('/buttons/text-icon', function () {
-    return view('buttons-showcase.text-icon');
-})->middleware(['auth'])->name('buttons.text-icon');
 
 require __DIR__ . '/auth.php';
