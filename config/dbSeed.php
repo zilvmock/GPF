@@ -2,5 +2,5 @@
     'users' => 5,
     'rooms' => 50,
     'games' => 100,
-    'messages' => 0,
+    'messages' => 20,
 ];

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Game;
+use App\Models\Room;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -24,9 +25,10 @@ class RoomFactory extends Factory
         $gameIds = Game::select('id')->pluck('id')->toArray();
 
         return [
-            'owner_id' => $userIds[rand(0, count($userIds) - 1)],
-            'game_id' => $gameIds[rand(0, count($gameIds) - 1)],
-            'title' => $title,
+            'owner_id' => $userIds[rand(1, count($userIds) - 1)],
+            'game_id' => $gameIds[rand(1, count($gameIds) - 1)],
+//            'title' => $title,
+            'title' => "[Kambarys] ".$title,
             'slug' => Str::Slug($title),
             'size' => rand(2, 4),
         ];
