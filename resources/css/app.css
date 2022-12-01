@@ -2,6 +2,7 @@
 @import "tailwindcss/components";
 @import "perfect-scrollbar/css/perfect-scrollbar.css";
 @import "tailwindcss/utilities";
+@import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@800&display=swap');
 
 .dark .ps__rail-y,
 .dark .ps__rail-x {

@@ -42,11 +42,16 @@ class RegisteredUserController extends Controller
         ];
 
         $validator = Validator::make($clearedFields, [
-            'username' => ['unique:users', 'required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'username' => ['unique:users', 'required', 'string', 'max:32'],
+            'email' => ['required', 'string', 'email', 'max:64', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'password_confirmation' => ['required', 'same:password', Rules\Password::defaults()],
         ]);
+
+        if (is_numeric($clearedFields['username'])) {
+            $validator->errors()->add('username', 'The username field can not be numbers only!');
+            return back()->withErrors($validator);
+        }
 
         if ($validator->fails()) {
             return back()->withErrors($validator);

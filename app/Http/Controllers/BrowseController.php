@@ -13,7 +13,8 @@ class BrowseController extends Controller
         $games = Game::select('id', 'name', 'slug', 'genres', 'summary', 'cover')->get();
 
         if ($request->has('search')) {
-            $games = Game::filter($request->search)->get();
+            $search = strip_tags(clean($request->search));
+            $games = Game::filter($search)->get();
         }
 
         /* sort by room count and add room count to each game */

@@ -17,6 +17,7 @@ module.exports = {
         extend: {
             fontFamily: {
                 sans: ["Inter", ...defaultTheme.fontFamily.sans],
+                gemunu: "Gemunu Libre",
             },
             colors: {
                 dark: {

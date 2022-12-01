@@ -1,7 +1,7 @@
-<div class="flex items-center justify-between flex-shrink-0 px-3">
+<div class="flex items-center justify-between flex-shrink-0 px-3 max-h-12">
     {{-- Logo --}}
     <a href="{{ route('browse') }}" class="inline-flex items-center gap-2">
-        <x-application-logo aria-hidden="true" class="w-14 h-auto"/>
+        <x-application-logo aria-hidden="true" class="w-24 h-auto"/>
     </a>
 
     {{-- Toggle button --}}

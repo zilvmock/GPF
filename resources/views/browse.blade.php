@@ -26,7 +26,7 @@
                            rounded-lg bg-gray-50 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-700
                            dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
                            dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                           placeholder="Search for a specific game..." required value="{{$searchValue ?? ''}}">
+                           placeholder="Search for a specific game..." value="{{$searchValue ?? ''}}">
                     <x-button class="ml-2 sm:px-8" type="submit" variant="primary" size="sm">
                         Search
                     </x-button>

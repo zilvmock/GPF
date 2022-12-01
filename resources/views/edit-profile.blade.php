@@ -24,7 +24,11 @@
                                  src="{{asset('storage/avatars/'.auth()->user()->avatar)}}"
                                  alt="User Avatar">
                         </div>
-                        <input class="h-full w-full my-10" id="avatar" type="file" name="avatar" />
+                        <input class="h-full w-full my-10" id="avatar" type="file" name="avatar"/>
+                        <div class="flex text-gray-400 italic py-3">
+                            <x-heroicon-o-question-mark-circle class="w-4 h-4"/>
+                            <small>After uploading the image, please click Update Settings to save it.</small>
+                        </div>
                     </div>
                     <div class="xl:pt-0 pt-8">
                         {{-- Username --}}
@@ -183,6 +187,7 @@
         <script type="module">
             const inputElement = document.querySelector('input[id="avatar"]');
             FilePond.setOptions({
+                acceptedFileTypes: ['image/jpeg', 'image/png', 'image/jpg'],
                 credits: false,
                 maxFiles: 1,
                 maxFileSize: '2MB',

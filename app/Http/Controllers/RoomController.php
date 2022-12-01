@@ -24,7 +24,7 @@ class RoomController extends Controller
         $gameId = $request->id;
         $game = Game::select('id', 'slug')->where('id', $gameId)->first();
 
-        if (auth()->user()->current_room_id != null) {
+        if (auth()->user()->current_room_id != 0) {
             return back()->with('error', 'You cannot create a new room while you are in another room!');
         }
 
@@ -91,7 +91,9 @@ class RoomController extends Controller
         $users_in_room = DB::table('users')->where('current_room_id', $room_id)->count();
         $room = Room::select('id', 'owner_id', 'title', 'size', 'is_locked')->where('id', $room_id)->first();
         if ($users_in_room >= $room->size && auth()->user()->current_room_id != $room_id) {
-            return back()->with('warning', 'Room is full!');
+            if ($users_in_room != 0) {
+                return back()->with('warning', 'Room is full!');
+            }
         } elseif ($room->is_locked && auth()->user()->current_room_id != $room->id) {
             return back()->with('warning', 'Room is locked!');
         }
@@ -111,6 +113,17 @@ class RoomController extends Controller
         $room_id = $request->room;
         $game_slug = $request->game;
         $game_id = $request->id;
+
+        $room_data = Room::select('size', 'is_locked')->where('id', $room_id)->first();
+        if ($room_data->is_locked && auth()->user()->current_room_id != $room_id) {
+            return back()->with('warning', 'Room is locked!');
+        }
+        $users_in_room = DB::table('users')->where('current_room_id', $room_id)->count();
+        if ($room_data->size >= $users_in_room && auth()->user()->current_room_id != $room_id) {
+            if ($users_in_room != 0) {
+                return back()->with('warning', 'Room is full!');
+            }
+        }
 
         $user = auth()->user();
 
@@ -158,7 +171,7 @@ class RoomController extends Controller
 
         $user = auth()->user();
 
-        $user->current_room_id = null;
+        $user->current_room_id = 0;
         $user->save();
 
         broadcast(new LeaveRoomEvent($room_id, $user->username));
@@ -176,7 +189,7 @@ class RoomController extends Controller
         $user_id = $request->user;
 
         $user = User::select('id', 'username', 'current_room_id')->where('id', $user_id)->first();
-        $user->current_room_id = null;
+        $user->current_room_id = 0;
         $user->save();
 
         broadcast(new KickFromRoomEvent($room_id, $user->username));
@@ -191,7 +204,7 @@ class RoomController extends Controller
         $game_id = $request->id;
 
         User::where('current_room_id', $room_id)->update([
-            'current_room_id' => null,
+            'current_room_id' => 0,
         ]);
         Room::where('id', $room_id)->delete();
 

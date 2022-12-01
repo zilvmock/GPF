@@ -35,7 +35,6 @@ Route::middleware(['auth', 'verified', 'noPendingVerify'])->group(function () {
     Route::get('/browse/{game:slug}/{id}/rooms', [BrowseController::class, 'showRooms'])->name('rooms');
     Route::get('/browse/{game:slug}/{id}/create-room', [RoomController::class, 'showCreateNewRoom'])->name('create_new_room');
     Route::get('/browse/{game:slug}/{id}/{room:slug}', [RoomController::class, 'showRoom'])->name('show_room');
-//    Route::get('/browse/{room:slug}', [RoomController::class, 'showRoomView'])->name('room_view');
 
     Route::put('/store-room/{game:id}', [RoomController::class, 'storeCreatedRoom'])->name('store_new_room');
     Route::get('/join-room/{room:id}', [RoomController::class, 'joinRoom'])->name('join_room');

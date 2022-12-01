@@ -27,10 +27,14 @@ class MetaViewComposer
         /* - game */
         if (request()->is('browse/*/*/rooms')) {
             $metaTitle = ucwords(str_replace('-', ' ', request()->segment(2)));
-        }
-        /* -- game room */
+        } /* -- create room */
+        elseif (request()->is('browse/*/*/create-room')) {
+            $metaTitle = ucwords('Create Room');
+        } /* -- join room */
         elseif (request()->is('browse/*/*/*')) {
-            $metaTitle = Room::select('title')->where('id', request()->segment(4))->first()->title;
+            $metaTitle = Room::select('title')->where('id', request()->segment(4))->firstOr(function () {
+                $metaTitle = 'Game Room';
+            })->title;
         }
 
         /* GUEST */

@@ -70,7 +70,7 @@
 
 {{-- Mobile bottom bar --}}
 <div
-    class="fixed inset-x-0 bottom-0 flex items-center justify-between px-4 py-4 sm:px-6 transition-transform duration-500 bg-white md:hidden dark:bg-dark-eval-1"
+    class="z-10 fixed inset-x-0 bottom-0 flex items-center justify-between px-4 py-4 sm:px-6 transition-transform duration-500 bg-white md:hidden dark:bg-dark-eval-1"
     :class="{
         'translate-y-full': scrollingDown,
         'translate-y-0': scrollingUp
@@ -86,7 +86,7 @@
     </x-button>
 
     <a href="{{ route('browse') }}">
-        <x-application-logo aria-hidden="true" class="w-10 h-10"/>
+        <x-application-logo aria-hidden="true" class="w-16 h-16"/>
         <span class="sr-only">K UI</span>
     </a>
 </div>

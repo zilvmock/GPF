@@ -14,7 +14,7 @@
                     <div
                         class="sm:mx-0 mx-auto overflow-hidden relative w-24 h-24 bg-gray-100 rounded-full dark:bg-gray-600">
                         <img class="p-1 w-24 h-24 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
-                             src="{{asset('storage/avatars/'.auth()->user()->avatar)}}"
+                             src="{{asset('./storage/avatars/'.auth()->user()->avatar)}}"
                              alt="User Avatar">
                     </div>
                     <div class="flex-col sm:ml-4">
@@ -42,13 +42,15 @@
                     </div>
 
                 </div>
-                <div>
-                    <x-button type="button" variant="primary" size="sm"
-                              href="{{route('edit_profile')}}">
-                        <x-heroicon-o-cog class="w-5 h-5"/>
-                        Edit Profile
-                    </x-button>
-                </div>
+                @if(auth()->user()->username == $user->username)
+                    <div>
+                        <x-button type="button" variant="primary" size="sm"
+                                  href="{{route('edit_profile')}}">
+                            <x-heroicon-o-cog class="w-5 h-5"/>
+                            Edit Profile
+                        </x-button>
+                    </div>
+                @endif
             </div>
             {{-- Gaming Platforms --}}
             <div id="platform_div" class="sm:flex-none flex sm:justify-start justify-center">
