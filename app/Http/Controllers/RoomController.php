@@ -119,7 +119,7 @@ class RoomController extends Controller
             return back()->with('warning', 'Room is locked!');
         }
         $users_in_room = DB::table('users')->where('current_room_id', $room_id)->count();
-        if ($room_data->size >= $users_in_room && auth()->user()->current_room_id != $room_id) {
+        if ($users_in_room >= $room_data->size && auth()->user()->current_room_id != $room_id) {
             if ($users_in_room != 0) {
                 return back()->with('warning', 'Room is full!');
             }

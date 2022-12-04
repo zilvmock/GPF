@@ -6,7 +6,7 @@
     </span>
     @foreach($users as $user)
         @if($user->id == $owner_id)
-            <div class="flex text-lg items-center my-2">
+            <div class="flex text-lg items-center my-2 mr-4">
                 <img class="p-1 w-8 h-8 rounded-full ring-2 ring-gray-300 dark:ring-gray-500 mr-2"
                      src="{{asset('storage/avatars/'.$user->avatar)}}"
                      alt="User Avatar">
