@@ -52,6 +52,7 @@
                     <x-warning-toast/>
                     <x-success-toast/>
                     <x-error-toast/>
+                    @livewire('notification-toast', ['room_id' => auth()->user()->current_room_id ?? 0])
                     {{ $slot }}
                 </main>
 
