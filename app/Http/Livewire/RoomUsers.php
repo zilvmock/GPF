@@ -24,7 +24,7 @@ class RoomUsers extends Component
 
     public function leaveAllUsersFromRoom()
     {
-        return redirect()->route('browse');
+        return redirect()->route('browse')->with('error', 'Room has been deleted');
     }
 
     public function leaveKickedUserFromRoom()

@@ -10,6 +10,7 @@ use App\Events\LockRoomEvent;
 use App\Events\UpdateOwnerEvent;
 use App\Events\UpdateRoomsEvent;
 use App\Models\Game;
+use App\Models\Message;
 use App\Models\Room;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -227,9 +228,23 @@ class RoomController extends Controller
         broadcast(new LockRoomEvent($room_id));
         broadcast(new UpdateRoomsEvent());
 
+        $message_fields = [
+            'room_id' => $room_id,
+            'user_id' => Room::where('id', $room_id)->first()->user->id,
+            'is_system_message' => true,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ];
+
         if ($room->is_locked) {
+            Message::insert($message_fields + [
+                'message' => 'Room was locked by the owner!',
+            ]);
             return redirect()->back()->with('success', 'Room locked!');
         } else {
+            Message::insert($message_fields + [
+                    'message' => 'Room was unlocked by the owner!',
+                ]);
             return redirect()->back()->with('success', 'Room unlocked!');
         }
     }
