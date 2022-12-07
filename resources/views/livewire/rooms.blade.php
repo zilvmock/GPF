@@ -22,19 +22,19 @@
                 @if ($room->users_count >= $room->size && auth()->user()->current_room_id != $room->id)
                     <x-button data-tooltip-target="tooltip-default" variant="primary" size="sm" disabled>
                         <x-heroicon-o-arrow-left-on-rectangle class="w-5"/>
-                        Join
+                        {{__('Join')}}
                     </x-button>
                     <x-tooltip>Full</x-tooltip>
                 @elseif($room->is_locked && auth()->user()->current_room_id != $room->id)
                     <x-button data-tooltip-target="tooltip-default" variant="primary" size="sm" disabled>
                         <x-heroicon-s-lock-closed class="w-5 text-red-400"/>
-                        Join
+                        {{__('Join')}}
                     </x-button>
                     <x-tooltip>Locked</x-tooltip>
                 @elseif (auth()->user()->current_room_id != 0 && auth()->user()->current_room_id != $room->id)
                     <x-button variant="primary" size="sm" type="none" data-modal-toggle="popup-modal-{{$room->id}}">
                         <x-heroicon-o-arrow-left-on-rectangle class="w-5"/>
-                        Join
+                        {{__('Join')}}
                     </x-button>
                     <form action="{{route('join_room', ['room' => $room->id, 'game' => $game_slug, 'id' => $game_id])}}"
                           method="post">
@@ -48,16 +48,14 @@
                                         <x-heroicon-o-exclamation-circle
                                             class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200"/>
                                         <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                            You haven't left your last room! Do you want to leave and join this room
-                                            instead? If you are the owner of previous room, new owner will be picked.
-                                            Otherwise, if room is empty it will be deleted.
+                                            {{__("You haven't left your last room! Do you want to leave and join this room instead? If you are the owner of previous room, new owner will be picked. Otherwise, if room is empty it will be deleted.")}}
                                         </h3>
                                         <button type="submit" data-modal-toggle="popup-modal-{{$room->id}}"
                                                 class="text-white bg-red-600
                                                 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300
                                                 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex
-                                                items-center px-5 py-2.5 text-center mr-2">
-                                            Yes, join this room
+                                                items-center px-5 py-2.5 text-center mr-2 mb-4">
+                                            {{__('Yes, join this room')}}
                                         </button>
                                         <button data-modal-toggle="popup-modal-{{$room->id}}" type="button"
                                                 class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none
@@ -65,7 +63,7 @@
                                                 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300
                                                 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600
                                                 dark:focus:ring-gray-600">
-                                            No, cancel
+                                            {{__('No, cancel')}}
                                         </button>
                                     </div>
                                 </div>
@@ -79,7 +77,7 @@
                         @method('GET')
                         <x-button variant="primary" size="sm">
                             <x-heroicon-o-arrow-left-on-rectangle class="w-5"/>
-                            Join
+                            {{__('Join')}}
                         </x-button>
                     </form>
                 @endif

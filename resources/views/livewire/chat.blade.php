@@ -10,7 +10,16 @@
                             <p class="mr-2">
                                 <small class="text-xs text-gray-400">{{$message->created_at->toTimeString()}}</small>
                             </p>
-                            <p class="break-all font-medium text-gray-400">{{$message->message}}</p>
+                            <p class="break-all font-medium text-gray-400">
+                                @php
+                                    preg_match_all("/'([^']+)'/", $message->message, $matches);
+                                    $matches = array_unique($matches[1]);
+                                    foreach ($matches as $match) {
+                                        $message->message = str_replace("'".$match."'", __($match), $message->message);
+                                    }
+                                @endphp
+                                 {{ $message->message }}
+                            </p>
                         </div>
                     @else
                         <div class="flex-col">

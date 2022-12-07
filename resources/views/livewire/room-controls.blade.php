@@ -10,7 +10,7 @@
             @method('DELETE')
             <x-button variant="danger" size="sm" class="w-full flex justify-center">
                 <x-heroicon-o-trash class="w-4"/>
-                Delete Room
+                {{__('Delete Room')}}
             </x-button>
         </form>
     @else
@@ -18,7 +18,7 @@
               method="post">
             @csrf
             @method('PUT')
-            <x-button variant="primary" size="sm"><b>Leave Room</b></x-button>
+            <x-button variant="primary" size="sm">{{__('Leave Room')}}</x-button>
         </form>
     @endif
 </div>

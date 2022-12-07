@@ -23,7 +23,7 @@
                                     dark:focus:ring-offset-dark-eval-2 bg-purple-500 text-white hover:bg-purple-600
                                     focus:ring-purple-500 px-2.5 py-1.5 text-sm rounded-md ml-2"
                                     id="check_username">
-                                Check
+                                {{__('Check')}}
                             </button>
                         </div>
                             <script type="module">

@@ -24,13 +24,13 @@ class RoomUsers extends Component
 
     public function leaveAllUsersFromRoom()
     {
-        return redirect()->route('browse')->with('error', 'Room has been deleted');
+        return redirect()->route('browse')->with('error', __('Room has been deleted!'));
     }
 
     public function leaveKickedUserFromRoom()
     {
         if (auth()->user()->current_room_id != $this->room_id) {
-            return redirect()->route('browse')->with('error', 'You have been kicked from the room!');
+            return redirect()->route('browse')->with('error', __('You have been kicked from the room!'));
         }
         return $this->render();
     }

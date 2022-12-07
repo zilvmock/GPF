@@ -98,9 +98,9 @@ class ProfileController extends Controller
                 $user->newEmail($email);
             }
 
-            return back()->with('success', 'Profile has been updated!');
+            return back()->with('success', __('Profile has been updated!'));
         } else {
-            return back()->withErrors($validator)->with('error', 'Failed to update profile!');
+            return back()->withErrors($validator)->with('error', __('Failed to update profile!'));
         }
     }
 
@@ -127,9 +127,9 @@ class ProfileController extends Controller
 
         if ($validator->passes()) {
             User::where('id', $user->id)->update($fields);
-            return back()->with('success', 'Profile has been updated!');
+            return back()->with('success', __('Profile has been updated!'));
         } else {
-            return back()->withErrors($validator)->with('error', 'Failed to update profile!');
+            return back()->withErrors($validator)->with('error', __('Failed to update profile!'));
         }
     }
 }

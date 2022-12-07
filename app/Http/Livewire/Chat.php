@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Message;
-use App\Models\Room;
+use App\Models\User;
 use Livewire\Component;
 
 class Chat extends Component
@@ -23,29 +23,29 @@ class Chat extends Component
 
     public function joinedMessage($payload)
     {
-        $this->createNotificationMessage("{$payload['user_username']} joined the room!");
+        $this->createNotificationMessage("{$payload['user_username']}' joined the room!'", $payload);
     }
 
     public function leftMessage($payload)
     {
-        $this->createNotificationMessage("{$payload['user_username']} left the room!");
+        $this->createNotificationMessage("{$payload['user_username']}' left the room!'", $payload);
     }
 
     public function kickedMessage($payload)
     {
-        $this->createNotificationMessage("{$payload['user_username']} was kicked from the room!");
+        $this->createNotificationMessage("{$payload['user_username']}' was kicked from the room!'", $payload);
     }
 
     public function ownerChangedMessage($payload)
     {
-        $this->createNotificationMessage("{$payload['old_owner_username']} (owner) left the room. {$payload['new_owner_username']} is the new owner!");
+        $this->createNotificationMessage("{$payload['old_owner_username']}' (owner) left the room. '. {$payload['new_owner_username']}' is the new owner!'", $payload);
     }
 
-    public function createNotificationMessage($message)
+    public function createNotificationMessage($message, $payload)
     {
         Message::insert([
             'room_id' => $this->room_id,
-            'user_id' => Room::where('id', $this->room_id)->first()->user->id,
+            'user_id' => User::where('username', $payload['user_username'] ?? $payload['old_owner_username'])->first()->id,
             'message' => $message,
             'is_system_message' => true,
             'created_at' => now(),
