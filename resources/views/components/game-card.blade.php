@@ -9,12 +9,13 @@
               dark:bg-gray-800 dark:border-gray-700 flex items-center justify-center">
         <p class="hidden text-center text-white">
             <x-button class="mt-4" type="button" variant="primary" size="sm">
-                Browse Rooms
+                {{__('Browse Rooms')}}
             </x-button>
         </p>
     </a>
     <div class="flex justify-center">
-        <p class="mt-2 text-gray-900 dark:text-purple-400 font-bold">Rooms: <span class="text-lg">{{$room_count}}</span>
+        <p class="mt-2 text-gray-900 dark:text-purple-400 font-bold">{{__('Rooms')}}: <span
+                class="text-lg">{{$room_count}}</span>
         </p>
     </div>
     <h5 class="mb-2 text-xl tracking-tight text-gray-900 dark:text-white">{{$name}}</h5>

@@ -26,16 +26,16 @@
                            rounded-lg bg-gray-50 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-700
                            dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
                            dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                           placeholder="Search for a specific game..." value="{{$searchValue ?? ''}}">
+                           placeholder="{{__('Search for a specific game...')}}" value="{{$searchValue ?? ''}}">
                     <x-button class="ml-2 sm:px-8" type="submit" variant="primary" size="sm">
-                        Search
+                        {{__('Search')}}
                     </x-button>
                 </div>
             </form>
         </div>
         <div class="grid xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-2 gap-4">
             @if($games->count() == 0)
-                <p>No games was found</p>
+                <p>{{__('No games were found')}}</p>
             @endif
             @foreach($games as $game)
                 <x-game-card>

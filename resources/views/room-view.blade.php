@@ -28,19 +28,19 @@
                     ])
                 </div>
                 <div>
-                    <label for="chat" class="sr-only">Your message</label>
+                    <label for="chat" class="sr-only">{{__('Your message')}}</label>
                     <div class="flex items-center py-2 px-3 bg-gray-50 rounded-lg dark:bg-gray-700">
                         <button type="submit"
                                 id="send_message"
                                 class="inline-flex justify-center p-2 text-purple-600 rounded-full cursor-pointer
                                  hover:bg-purple-100 dark:text-purple-500 dark:hover:bg-gray-600">
                             <x-heroicon-s-paper-airplane class="w-6 h-6 rotate-90"/>
-                            <span class="sr-only">Send message</span>
+                            <span class="sr-only">{{__('Send message')}}</span>
                         </button>
                         <!--suppress HtmlFormInputWithoutLabel -->
                         <input type="text" name="message" id="msg"
                                class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                               placeholder="Your message..."
+                               placeholder="{{__('Your message')}}..."
                                maxlength="512"/>
                     </div>
                     <script type="module">

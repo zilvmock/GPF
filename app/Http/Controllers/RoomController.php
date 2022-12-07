@@ -26,7 +26,7 @@ class RoomController extends Controller
         $game = Game::select('id', 'slug')->where('id', $gameId)->first();
 
         if (auth()->user()->current_room_id != 0) {
-            return back()->with('error', 'You cannot create a new room while you are in another room!');
+            return back()->with('error', __('You cannot create a new room while you are in another room!'));
         }
 
         return view('create-new-room', [
@@ -82,7 +82,7 @@ class RoomController extends Controller
     public function showRoom(Request $request)
     {
         if (auth()->user()->current_room_id != $request->room) {
-            return redirect()->back()->with('error', 'You cannot access this room through URL!');
+            return redirect()->back()->with('error', __('You cannot access this room through URL!'));
         }
 
         $game_slug = $request->game;
@@ -93,10 +93,10 @@ class RoomController extends Controller
         $room = Room::select('id', 'owner_id', 'title', 'size', 'is_locked')->where('id', $room_id)->first();
         if ($users_in_room >= $room->size && auth()->user()->current_room_id != $room_id) {
             if ($users_in_room != 0) {
-                return back()->with('warning', 'Room is full!');
+                return back()->with('warning', __('Room is full!'));
             }
         } elseif ($room->is_locked && auth()->user()->current_room_id != $room->id) {
-            return back()->with('warning', 'Room is locked!');
+            return back()->with('warning', __('Room is locked!'));
         }
 
         return view('room-view', [
@@ -117,12 +117,12 @@ class RoomController extends Controller
 
         $room_data = Room::select('size', 'is_locked')->where('id', $room_id)->first();
         if ($room_data->is_locked && auth()->user()->current_room_id != $room_id) {
-            return back()->with('warning', 'Room is locked!');
+            return back()->with('warning', __('Room is locked!'));
         }
         $users_in_room = DB::table('users')->where('current_room_id', $room_id)->count();
         if ($users_in_room >= $room_data->size && auth()->user()->current_room_id != $room_id) {
             if ($users_in_room != 0) {
-                return back()->with('warning', 'Room is full!');
+                return back()->with('warning', __('Room is full!'));
             }
         }
 
@@ -195,7 +195,7 @@ class RoomController extends Controller
 
         broadcast(new KickFromRoomEvent($room_id, $user->username));
         broadcast(new UpdateRoomsEvent());
-        return back()->with('success', 'User kicked from the room!');
+        return back()->with('success', __('User kicked from the room!'));
     }
 
     public function deleteRoom(Request $request)
@@ -240,12 +240,12 @@ class RoomController extends Controller
             Message::insert($message_fields + [
                 'message' => 'Room was locked by the owner!',
             ]);
-            return redirect()->back()->with('success', 'Room locked!');
+            return redirect()->back()->with('success', __('Room locked!'));
         } else {
             Message::insert($message_fields + [
                     'message' => 'Room was unlocked by the owner!',
                 ]);
-            return redirect()->back()->with('success', 'Room unlocked!');
+            return redirect()->back()->with('success', __('Room unlocked!'));
         }
     }
 }

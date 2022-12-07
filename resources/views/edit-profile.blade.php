@@ -10,7 +10,7 @@
         <x-button type="button" variant="primary" size="sm" href="{{route('show_profile', auth()->user()->username)}}"
                   class="md:ml-0 md:mb-0 ml-2 mb-2">
             <x-heroicon-o-arrow-left class="w-5 h-5"/>
-            Profile
+            {{__('Profile')}}
         </x-button>
         <x-layout.layout-card-2>
             <form method="POST" action="{{route('store_profile')}}">
@@ -27,7 +27,7 @@
                         <input class="h-full w-full my-10" id="avatar" type="file" name="avatar"/>
                         <div class="flex text-gray-400 italic py-3">
                             <x-heroicon-o-question-mark-circle class="w-4 h-4"/>
-                            <small>After uploading the image, please click Update Settings to save it.</small>
+                            <small>{{__('After uploading the image, please click Update Settings to save it.')}}</small>
                         </div>
                     </div>
                     <div class="xl:pt-0 pt-8">
@@ -44,7 +44,7 @@
                                          maxlength="16"/>
                             </x-input-with-icon-wrapper>
                             @error('username')
-                            <x-error-alert>{{$message}}</x-error-alert>
+                            <x-error-alert>{!! $message !!}</x-error-alert>
                             @enderror
                         </div>
                         {{-- Email Address --}}
@@ -174,7 +174,7 @@
                 <div class="xl:flex justify-between space-y-4">
                     <div class="flex text-gray-400 italic py-3">
                         <x-heroicon-o-question-mark-circle class="w-4 h-4"/>
-                        <small>Provide your gaming platform account names, so other user can find you.</small>
+                        <small>{{__('Provide your gaming platform account names, so other user can find you.')}}</small>
                     </div>
                     <x-button class="justify-center xl:w-max w-full">
                         <span>{{ __('Update Platforms') }}</span>
@@ -186,7 +186,33 @@
     @section('scripts')
         <script type="module">
             const inputElement = document.querySelector('input[id="avatar"]');
-            FilePond.setOptions({
+
+            let $lang;
+            if ({{app()->getLocale() === 'lt' ? 1 : 0 }}) {
+                $lang = {
+                    labelIdle: 'Tempkite ir Paleiskite savo profilio paveikslėlį arba <span class="filepond--label-action">Naršykite</span>',
+                    labelFileTypeNotAllowed: 'Netinkamas failo tipas',
+                    fileValidateTypeLabelExpectedTypes: 'Tik .jpeg, .png ir .jpg failai',
+                    labelMaxFileSizeExceeded: 'Failas per didelis',
+                    labelFileLoading: 'Įkeliamas failas',
+                    labelFileLoadError: 'Įkeliant failą įvyko klaida',
+                    labelFileProcessing: 'Apdorojamas failas',
+                    labelFileProcessingComplete: 'Failas apdorotas',
+                    labelFileProcessingAborted: 'Failo apdorojimas nutrauktas',
+                    labelFileProcessingError: 'Apdorojant failą įvyko klaida',
+                    labelTapToCancel: 'Spauskite norėdami atšaukti',
+                    labelTapToRetry: 'Spauskite norėdami bandyti dar kartą',
+                    labelTapToUndo: 'Spauskite norėdami atšaukti',
+                    labelButtonRemoveItem: 'Pašalinti',
+                    labelButtonAbortItemLoad: 'Atšaukti',
+                    labelButtonRetryItemLoad: 'Bandyti dar kartą',
+                    labelButtonAbortItemProcessing: 'Atšaukti',
+                    labelButtonUndoItemProcessing: 'Atšaukti',
+                    labelButtonRetryItemProcessing: 'Bandyti dar kartą',
+                    labelButtonProcessItem: 'Įkelti',
+                }
+            }
+            FilePond.setOptions($lang + {
                 acceptedFileTypes: ['image/jpeg', 'image/png', 'image/jpg'],
                 credits: false,
                 maxFiles: 1,

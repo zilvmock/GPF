@@ -1,7 +1,7 @@
 <div class="w-full">
     <span class="flex items-center space-x-1">
         <x-heroicon-o-user-group class="w-6"/>
-        <h1 class="text-xl font-bold">Users</h1>
+        <h1 class="text-xl font-bold">{{__('Users')}}</h1>
         <small class="text-base">({{$users->count()}}/{{$room_size}})</small>
     </span>
     @foreach($users as $user)
@@ -14,7 +14,7 @@
                     <h1 class="mr-1 hover:text-purple-400"><a
                             href="{{route('show_profile', $user)}}">{{$user->username}}</a></h1>
                     <x-heroicon-s-star class="w-6 text-yellow-300" data-tooltip-target="tooltip-default"/>
-                    <x-tooltip>Room Owner</x-tooltip>
+                    <x-tooltip>{{__('Room Owner')}}</x-tooltip>
                 </div>
             </div>
         @else
@@ -45,13 +45,13 @@
                                     <x-heroicon-o-exclamation-circle
                                         class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200"/>
                                     <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                        Do you want to kick this user from the room?
+                                        {{__('Do you want to kick this user from the room?')}}
                                     </h3>
                                     <button data-modal-toggle="popup-modal-{{$user->id}}" type="submit"
                                             class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none
                                             focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm
                                             inline-flex items-center px-5 py-2.5 text-center mr-2">
-                                        Yes, bye bye!
+                                        {{__('Yes')}}
                                     </button>
                                     <button data-modal-toggle="popup-modal-{{$user->id}}" type="button"
                                             class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none
@@ -59,7 +59,7 @@
                                             py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300
                                             dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600
                                             dark:focus:ring-gray-600">
-                                        No, cancel
+                                        {{__('No, cancel')}}
                                     </button>
                                 </div>
                             </div>

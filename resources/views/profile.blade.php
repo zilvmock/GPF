@@ -24,18 +24,18 @@
                             </h>
                         </div>
                         <div class="py-2">
-                            <x-tooltip :id="'tltip-1'">Account creation date</x-tooltip>
+                            <x-tooltip :id="'tltip-1'">{{__('Account creation date')}}</x-tooltip>
                             <span data-tooltip-target="tltip-1"
                                   class="bg-gray-100 text-gray-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded mr-2 dark:bg-gray-700 dark:text-gray-300">
                                 <x-heroicon-o-calendar class="w-4 h-4 mr-2"/> {{date('Y-m-d', strtotime($user->created_at))}}
                             </span>
-                            <x-tooltip :id="'tltip-2'">Email verification status</x-tooltip>
+                            <x-tooltip :id="'tltip-2'">{{__('Email verification status')}}</x-tooltip>
                             <span data-tooltip-target="tltip-2"
                                   class="bg-gray-100 text-gray-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded mr-2 dark:bg-gray-700 dark:text-gray-300">
                                 @if ($user->email_verified_at)
-                                    <x-heroicon-o-check-circle class="w-4 h-4 mr-2"/> Verified
+                                    <x-heroicon-o-check-circle class="w-4 h-4 mr-2"/> {{__('Verified')}}
                                 @else
-                                    <x-heroicon-o-x-circle class="w-4 h-4 mr-2"/> Not Verified
+                                    <x-heroicon-o-x-circle class="w-4 h-4 mr-2"/> {{__('Not Verified')}}
                                 @endif
                             </span>
                         </div>
@@ -47,7 +47,7 @@
                         <x-button type="button" variant="primary" size="sm"
                                   href="{{route('edit_profile')}}">
                             <x-heroicon-o-cog class="w-5 h-5"/>
-                            Edit Profile
+                            {{__('Edit Profile')}}
                         </x-button>
                     </div>
                 @endif
@@ -62,7 +62,7 @@
                     <div
                         class="sm:w-max w-4/5 p-4 border rounded-lg shadow-md sm:p-6 dark:bg-gray-800 dark:border-gray-700">
                         <h5 class="mb-3 text-base font-semibold text-gray-900 md:text-xl dark:text-white">
-                            My Gaming Platforms
+                            {{__('My Gaming Platforms')}}
                         </h5>
                         <ul class="my-4 sm:flex sm:space-x-2 sm:space-y-0 space-y-2">
                             @if($user->steam_usr)

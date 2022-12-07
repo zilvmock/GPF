@@ -12,21 +12,22 @@
             @method('put')
             <div class="flex-col space-y-2">
                 <div>
-                    <x-label>Room Title</x-label>
-                    <x-input type="text" name="title" maxlength="128" placeholder="Room Title" maxlength="128"/>
+                    <x-label>{{__('Room Title')}}</x-label>
+                    <x-input type="text" name="title" maxlength="128" placeholder="{{__('Room Title')}}"
+                             maxlength="128"/>
                     @error('title')
                     <x-error-alert>{{$message}}</x-error-alert>
                     @enderror
                 </div>
                 <div>
-                    <x-label class="p-0 m-0">Number of Players</x-label>
-                    <x-input type="number" name="size" value="2" min="2" max="16" placeholder="Players"/>
+                    <x-label class="p-0 m-0">{{__('Number of Players')}}</x-label>
+                    <x-input type="number" name="size" value="2" min="2" max="16" placeholder="{{__('Players')}}"/>
                     @error('size')
                     <x-error-alert>{{$message}}</x-error-alert>
                     @enderror
                 </div>
                 <div class="pt-4">
-                    <x-button type="submit" variant="primary" size="sm">Create Room</x-button>
+                    <x-button type="submit" variant="primary" size="sm">{{__('Create Room')}}</x-button>
                 </div>
             </div>
         </form>

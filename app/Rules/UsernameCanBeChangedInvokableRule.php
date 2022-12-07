@@ -20,7 +20,7 @@ class UsernameCanBeChangedInvokableRule implements InvokableRule
         if ($value != auth()->user()->username) {
             if (auth()->user()->username_changed_at != null &&
                 auth()->user()->username_changed_at->addDays(7) >= Carbon::now()) {
-                $fail("Username can't be changed so often! Try in " . auth()->user()->username_changed_at->addDays(7)->diffForHumans());
+                $fail(__("Username can't be changed so often! Try in ") . auth()->user()->username_changed_at->addDays(7)->diffForHumans());
             }
         }
     }

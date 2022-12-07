@@ -5,12 +5,12 @@
         @if($room_lock)
             <x-button variant="primary" size="sm" class="w-full flex justify-center">
                 <x-heroicon-o-lock-closed class="w-4"/>
-                Unlock Room
+                {{__('Unlock Room')}}
             </x-button>
         @else
             <x-button variant="primary" size="sm" class="w-full flex justify-center">
                 <x-heroicon-o-lock-open class="w-4"/>
-                Lock Room
+                {{__('Lock Room')}}
             </x-button>
         @endif
     </form>

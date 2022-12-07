@@ -19,10 +19,36 @@
             <x-heroicon-o-moon x-show="!isDarkMode" aria-hidden="true" class="w-6 h-6 dark:text-gray-200"/>
             <x-heroicon-o-sun x-show="isDarkMode" aria-hidden="true" class="w-6 h-6 dark:text-gray-200"/>
         </x-button>
+        @if(count(config('app.languages')) > 1)
+            <div>
+                <x-button type="button" variant="secondary" id="dropdownDefault"
+                          data-dropdown-toggle="dropdown">
+                    {{ strtoupper(app()->getLocale()) }}
+                    <x-heroicon-o-chevron-down class="w-4 h-4 ml-2"/>
+                </x-button>
+                <!-- Dropdown menu -->
+                <div id="dropdown"
+                     class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
+                    <ul class="text-left py-1 text-sm text-gray-700 dark:text-gray-200"
+                        aria-labelledby="dropdownDefault">
+                        @foreach(config('app.languages') as $langLocale => $langName)
+                            <li>
+                                <a href="{{ url()->current() }}?change_language={{ $langLocale }}"
+                                   class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                    {{ strtoupper($langLocale) }} ({{ $langName }})
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        @endif
         <x-dropdown align="right" width="48">
             <x-slot name="trigger">
                 <button
-                    class="flex items-center p-2 text-sm font-medium text-gray-500 rounded-md transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none focus:ring focus:ring-purple-500 focus:ring-offset-1 focus:ring-offset-white dark:focus:ring-offset-dark-eval-1 dark:text-gray-400 dark:hover:text-gray-200">
+                    class="flex text-lg items-center p-2 text-sm font-medium text-gray-500 rounded-md transition duration-150
+                           ease-in-out hover:text-gray-700 focus:outline-none focus:ring focus:ring-purple-500 focus:ring-offset-1
+                           focus:ring-offset-white dark:focus:ring-offset-dark-eval-1 dark:text-gray-400 dark:hover:text-gray-200">
                     <div class="dark:text-gray-200">{{ Auth::user()->username }}</div>
 
                     <div class="ml-1">

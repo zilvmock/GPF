@@ -21,7 +21,7 @@
                             class="flex items-center justify-between w-full py-5 font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
                             data-accordion-target="#accordion-flush-body-1" aria-expanded="false"
                             aria-controls="accordion-flush-body-1">
-                        <span>Read Summary</span>
+                        <span>{{__('Read Summary')}}</span>
                         <x-heroicon-o-chevron-down data-accordion-icon class="w-5 h-5 shrink-0"/>
                     </button>
                 </h2>
@@ -46,7 +46,7 @@
                           class="sm:px-12"
                           href="{{route('create_new_room', ['game' => $game_slug, 'id' => $game_id])}}">
                     <x-heroicon-o-plus-sm class="w-5"/>
-                    Create Room
+                    {{__('Create Room')}}
                 </x-button>
             </div>
         @endif

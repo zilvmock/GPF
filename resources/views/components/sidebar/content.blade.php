@@ -19,8 +19,9 @@
     {{--                           :active="request()->routeIs('buttons.text-icon')"/>--}}
     {{--    </x-sidebar.dropdown>--}}
 
-    <div x-transition x-show="isSidebarOpen || isSidebarHovered" class="text-sm dark:text-gray-200">Browse</div>
-    <x-sidebar.link title="Browse Games" href="{{route('browse')}}"/>
+    <div x-transition x-show="isSidebarOpen || isSidebarHovered"
+         class="text-sm dark:text-gray-200">{{__('Browse')}}</div>
+    <x-sidebar.link title="{{__('Browse Games')}}" href="{{route('browse')}}"/>
 
     {{--    @php--}}
     {{--        $links = array_fill(0, 20, '');--}}
