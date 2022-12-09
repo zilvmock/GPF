@@ -6,7 +6,6 @@ use App\Models\TemporaryFile;
 use App\Models\User;
 use App\Rules\NotURLInvokableRule;
 use App\Rules\UsernameCanBeChangedInvokableRule;
-use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
@@ -69,16 +68,13 @@ class ProfileController extends Controller
 
         if ($validator->passes()) {
             if ($temporaryFile) {
-                Debugbar::addMessage("Temporary file exists");
                 rename(
                     storage_path('app/public/avatars/tmp/' . $temporaryFile->folder . '/' . $temporaryFile->filename),
                     storage_path('app/public/avatars/' . $temporaryFile->filename)
                 );
-                Debugbar::addMessage("Renamed file");
                 $fields['avatar'] = $temporaryFile->filename;
                 rmdir(storage_path('app/public/avatars/tmp/' . $request->avatar));
                 $temporaryFile->delete();
-                Debugbar::addMessage("Done");
             }
             if (array_key_exists('password', $fields)) {
                 Arr::forget($fields, ['password_confirmation']);

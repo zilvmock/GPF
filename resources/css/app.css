@@ -49,3 +49,17 @@ body::-webkit-scrollbar-thumb {
     max-height: 5em;
     min-width: 10em;
 }
+
+input[type=file]::file-selector-button {
+    border: none;
+    background: #6a717e;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+}
+
+input[type=file]::file-selector-button:hover {
+    background: rgb(66, 72, 80);
+}

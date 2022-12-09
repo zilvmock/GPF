@@ -187,10 +187,9 @@
         <script type="module">
             const inputElement = document.querySelector('input[id="avatar"]');
 
-            let $lang;
             if ({{app()->getLocale() === 'lt' ? 1 : 0 }}) {
-                $lang = {
-                    labelIdle: 'Tempkite ir Paleiskite savo profilio paveikslėlį arba <span class="filepond--label-action">Naršykite</span>',
+                FilePond.setOptions({
+                    labelIdle: 'Tempkite ir paleiskite savo paveikslėlį arba <span class="filepond--label-action">naršykite</span>',
                     labelFileTypeNotAllowed: 'Netinkamas failo tipas',
                     fileValidateTypeLabelExpectedTypes: 'Tik .jpeg, .png ir .jpg failai',
                     labelMaxFileSizeExceeded: 'Failas per didelis',
@@ -210,22 +209,37 @@
                     labelButtonUndoItemProcessing: 'Atšaukti',
                     labelButtonRetryItemProcessing: 'Bandyti dar kartą',
                     labelButtonProcessItem: 'Įkelti',
-                }
-            }
-            FilePond.setOptions($lang + {
-                acceptedFileTypes: ['image/jpeg', 'image/png', 'image/jpg'],
-                credits: false,
-                maxFiles: 1,
-                maxFileSize: '2MB',
-                minFileSize: '1KB',
-                instantUpload: false,
-                server: {
-                    url: '/upload',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    acceptedFileTypes: ['image/jpeg', 'image/png', 'image/jpg'],
+                    credits: false,
+                    maxFiles: 1,
+                    maxFileSize: '2MB',
+                    minFileSize: '1KB',
+                    instantUpload: false,
+                    server: {
+                        url: '/upload',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                FilePond.setOptions({
+                    labelIdle: 'Drag & Drop your image or <span class="filepond--label-action">browse</span>',
+                    acceptedFileTypes: ['image/jpeg', 'image/png', 'image/jpg'],
+                    credits: false,
+                    maxFiles: 1,
+                    maxFileSize: '2MB',
+                    minFileSize: '1KB',
+                    instantUpload: false,
+                    server: {
+                        url: '/upload',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    }
+                });
+            }
+
             const pond = FilePond.create(inputElement);
         </script>
     @endsection

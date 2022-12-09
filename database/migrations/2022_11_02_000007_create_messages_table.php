@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('user_id');
             $table->longText('message');
             $table->boolean('is_system_message')->default(false);
+            $table->string('image')->nullable();
             $table->timestamps();
 
             $table->foreign('room_id')->references('id')->on('rooms')->cascadeOnDelete();

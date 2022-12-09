@@ -18,7 +18,7 @@
                                         $message->message = str_replace("'".$match."'", __($match), $message->message);
                                     }
                                 @endphp
-                                 {{ $message->message }}
+                                {{ $message->message }}
                             </p>
                         </div>
                     @else
@@ -28,6 +28,10 @@
                                 <p class="text-xs text-gray-400 w-max">{{$message->created_at->toTimeString()}}</p>
                             </div>
                             <p class="break-all">{{$message->message}}</p>
+                            @if($message->image != null)
+                                <img alt="" src="{{asset('./storage/chat/'.$message->image)}}"
+                                     class="mt-1 max-w-md object-cover rounded">
+                            @endif
                         </div>
                     @endif
                 </div>

@@ -14,9 +14,11 @@ use App\Models\Message;
 use App\Models\Room;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Spatie\Emoji\Emoji;
 
 class RoomController extends Controller
 {
@@ -85,6 +87,10 @@ class RoomController extends Controller
             return redirect()->back()->with('error', __('You cannot access this room through URL!'));
         }
 
+        if (!Cache::has('emojis')) {
+            $this->cacheEmojis();
+        }
+
         $game_slug = $request->game;
         $game_id = $request->id;
         $room_id = $request->room;
@@ -107,6 +113,31 @@ class RoomController extends Controller
             'room_lock' => $room->is_locked,
             'room_size' => $room->size,
         ]);
+    }
+
+    private function cacheEmojis()
+    {
+        $emojis = array_filter(Emoji::all(), function ($key) {
+            return strpos($key, 'FACE') !== false;
+        }, ARRAY_FILTER_USE_KEY);
+        $emojis = array_slice($emojis, 0, 103);
+        $skip = ['CHARACTER_MELTING_FACE',
+            'CHARACTER_SMILING_FACE',
+            'CHARACTER_SMILING_FACE_WITH_TEAR',
+            'CHARACTER_FACE_WITH_OPEN_EYES_AND_HAND_OVER_MOUTH',
+            'CHARACTER_FACE_WITH_PEEKING_EYE',
+            'CHARACTER_SALUTING_FACE',
+            'CHARACTER_FACE_IN_CLOUDS',
+            'CHARACTER_FACE_EXHALING',
+            'CHARACTER_FACE_WITH_SPIRAL_EYES',
+            'CHARACTER_DISGUISED_FACE',
+            'CHARACTER_FACE_WITH_DIAGONAL_MOUTH',
+            'CHARACTER_FACE_HOLDING_BACK_TEARS',
+            'CHARACTER_SHAKING_FACE',
+            'CHARACTER_DOTTED_LINE_FACE'
+        ];
+        $emojis = array_diff_key($emojis, array_flip($skip));
+        Cache::put('emojis', $emojis);
     }
 
     public function joinRoom(Request $request)
