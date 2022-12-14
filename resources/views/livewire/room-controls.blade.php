@@ -18,7 +18,7 @@
               method="post">
             @csrf
             @method('PUT')
-            <x-button variant="primary" size="sm">{{__('Leave Room')}}</x-button>
+            <x-button class="w-full flex justify-center" variant="primary" size="sm">{{__('Leave Room')}}</x-button>
         </form>
     @endif
 </div>

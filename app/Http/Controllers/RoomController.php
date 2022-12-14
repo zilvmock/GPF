@@ -49,7 +49,7 @@ class RoomController extends Controller
         ];
 
         $validator = Validator::make($fieldsToVerify, [
-            'title' => ['required', 'max:128'],
+            'title' => ['required', 'min:6' ,'max:128'],
             'size' => ['required', 'numeric', 'min:2', 'max:16'],
         ], [
             'required' => 'The :attribute field can not be blank!',

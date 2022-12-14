@@ -6,7 +6,7 @@
             <feBlend in2="SourceGraphic" result="blend"/>
         </filter>
     </defs>
-    <text x="13.5" y="309.5" data-name="GPF copy" class="font-gemunu"
+    <text x="250" y="309.5" data-name="GPF copy" class="font-gemunu" text-anchor="middle"
           style="font-size:220.833px;filter:url(#a);font-family:'Gemunu Libre', sans-serif;">GPF
     </text>
 </svg>

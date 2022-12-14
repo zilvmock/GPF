@@ -37,7 +37,6 @@
                                             },
                                         }).done(function (data) {
                                             let input = $('input[id=username]');
-                                            console.log(data);
                                             input.removeClass('focus:ring-purple-500 focus:ring');
                                             if (data === 'taken') {
                                                 input.removeClass('focus:ring-green-500 ring-green-500');
