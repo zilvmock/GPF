@@ -40,8 +40,8 @@ class NewPasswordController extends Controller
         ];
 
         $validator = Validator::make($clearedFields, [
-            'email' => ['required', 'email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'email' => ['required', 'email', 'max:255', 'min:4'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults(), 'max:255'],
         ]);
 
         if ($validator->fails()) {

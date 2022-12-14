@@ -32,11 +32,11 @@ class MessageController extends Controller
 
         if ($temporaryFile) {
             $validator = Validator::make($fields, [
-                'message' => ['max:1024'],
+                'message' => ['max:255'],
             ]);
         } else {
             $validator = Validator::make($fields, [
-                'message' => ['required', 'max:1024'],
+                'message' => ['required', 'max:255'],
             ], [
                 'message.required' => 'Message is required',
             ]);

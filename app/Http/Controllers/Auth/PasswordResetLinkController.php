@@ -34,7 +34,7 @@ class PasswordResetLinkController extends Controller
         ];
 
         $validator = Validator::make($clearedFields, [
-            'email' => ['required', 'string', 'email', 'max:64'],
+            'email' => ['required', 'string', 'email', 'max:64', 'min:4'],
         ]);
 
         if ($validator->fails()) {

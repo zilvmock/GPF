@@ -22,6 +22,13 @@ class Kernel extends ConsoleKernel
                 Storage::disk('public')->deleteDirectory($folder);
             }
         })->daily();
+
+        $schedule->call(function () {
+            $folders = Storage::disk('public')->directories('chat/tmp');
+            foreach ($folders as $folder) {
+                Storage::disk('public')->deleteDirectory($folder);
+            }
+        })->hourly();
     }
 
     /**

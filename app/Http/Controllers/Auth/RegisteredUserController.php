@@ -42,8 +42,8 @@ class RegisteredUserController extends Controller
         ];
 
         $validator = Validator::make($clearedFields, [
-            'username' => ['unique:users', 'required', 'string', 'max:32'],
-            'email' => ['required', 'string', 'email', 'max:64', 'unique:users'],
+            'username' => ['unique:users', 'required', 'string', 'max:32', 'min:4'],
+            'email' => ['required', 'string', 'email', 'max:64', 'min:4', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'password_confirmation' => ['required', 'same:password', Rules\Password::defaults()],
         ]);

@@ -59,7 +59,7 @@ class ProfileController extends Controller
 
         $validator = Validator::make($fields, [
             'username' => ['max:16', 'min:4', 'unique:users,username', new usernameCanBeChangedInvokableRule],
-            'email' => ['max:32', 'email', 'unique:users,email'],
+            'email' => ['max:32', 'min:4', 'email', 'unique:users,email'],
             'password' => ['required_with:password_confirmation', 'max:32', 'min:6'],
             'password_confirmation' => ['max:32', 'min:6', 'same:password'],
         ], [
@@ -118,7 +118,7 @@ class ProfileController extends Controller
         $fields = array_filter($fields, function($value) { return $value !== ''; });
 
         $validator = Validator::make($fields, [
-            'steam_usr','epic_usr','origin_usr','xbox_usr' => ['max:64', 'min:2', new NotURLInvokableRule()],
+            'steam_usr','epic_usr','origin_usr','xbox_usr' => ['max:64', 'min:4', new NotURLInvokableRule()],
         ]);
 
         if ($validator->passes()) {
