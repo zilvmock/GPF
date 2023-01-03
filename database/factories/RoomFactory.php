@@ -27,8 +27,7 @@ class RoomFactory extends Factory
         return [
             'owner_id' => $userIds[rand(1, count($userIds) - 1)],
             'game_id' => $gameIds[rand(1, count($gameIds) - 1)],
-//            'title' => $title,
-            'title' => "[Kambarys] ".$title,
+            'title' => $title,
             'slug' => Str::Slug($title),
             'size' => rand(2, 4),
         ];
