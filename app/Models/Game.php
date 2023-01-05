@@ -16,9 +16,17 @@ class Game extends Model
         return $this->belongsTo(Room::class);
     }
 
-    public function scopeFilter($query, $input)
+    public function scopeFilter($query, $name, $genres)
     {
-        return $query->where('name', 'like', "%$input%")
-            ->orWhere('genres', 'like', "%$input%");
+        if (empty($genres)) {
+            return $query->where('name', 'like', '%' . $name . '%');
+        } else {
+            return $query->where('name', 'like', '%' . $name . '%')
+                ->where(function ($query) use ($genres) {
+                    foreach ($genres as $genre) {
+                        $query->orWhere('genres', 'like', '%' . $genre . '%');
+                    }
+                });
+        }
     }
 }

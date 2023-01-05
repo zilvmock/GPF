@@ -11,20 +11,31 @@ class BrowseController extends Controller
     function showGames(Request $request)
     {
         $games = Game::select('id', 'name', 'slug', 'genres', 'summary', 'cover')->get();
+        $allGames = $games;
+        $searchGenres = explode(',', $request->genres);
+        $searchGenres = array_map('trim', $searchGenres);
 
         if ($request->has('search')) {
             $search = strip_tags(clean($request->search));
-            $games = Game::filter($search)->get();
+            $games = Game::filter($search, $searchGenres)->get();
         }
 
-        /* sort by room count and add room count to each game */
         $games = $games->sortByDesc(function ($game) {
             $game->room_count = Room::select('game_id')->where('game_id', $game->id)->count();
             return $game->room_count;
         });
 
+        $allGenres = $allGames->pluck('genres')->map(function ($item, $key) {
+            return explode(',', $item);
+        })->flatten();
+        $allGenres = $allGenres->map(function ($item, $key) {
+            return trim($item);
+        })->unique()->sort();
+
         return view('browse', [
             'games' => $games->paginate(24),
+            'allGenres' => $allGenres,
+            'searchGenres' => $searchGenres,
             'searchValue' => $request->search ?? ''
         ]);
     }

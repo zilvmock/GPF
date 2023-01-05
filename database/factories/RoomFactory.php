@@ -25,7 +25,8 @@ class RoomFactory extends Factory
         $gameIds = Game::select('id')->pluck('id')->toArray();
 
         return [
-            'owner_id' => $userIds[rand(1, count($userIds) - 1)],
+            /* Skip test users to not be in rooms by default */
+            'owner_id' => $userIds[rand(3, count($userIds) - 1)],
             'game_id' => $gameIds[rand(1, count($gameIds) - 1)],
             'title' => $title,
             'slug' => Str::Slug($title),

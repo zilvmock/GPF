@@ -16,7 +16,6 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->times(config('dbSeed.users'))->create();
         User::create([
             'username' => 'naudotojas1',
             'email' => 'naudotojas1@mail.com',
@@ -31,5 +30,6 @@ class UsersSeeder extends Seeder
             'password' => Hash::make('naudotojas2'),
             'remember_token' => Str::random(10),
         ]);
+        User::factory()->times(config('dbSeed.users'))->create();
     }
 }
