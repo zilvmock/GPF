@@ -7,10 +7,10 @@
             <div class="flex flex-wrap">
                 @php($game->genres = explode(', ', $game->genres))
                 @foreach($game->genres as $genre)
-                    <span
-                        class="bg-gray-100 text-gray-800 font-bold text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                    <a href="{{route('browse', ['search' => '', 'genres' => $genre])}}"
+                       class="bg-gray-100 text-gray-800 font-bold text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
                         {!! $genre !!}
-                    </span>
+                    </a>
                 @endforeach
             </div>
             <div id="accordion-flush" data-accordion="collapse"

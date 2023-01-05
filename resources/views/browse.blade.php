@@ -66,7 +66,7 @@
                             @foreach($allGenres as $genre)
                                 <li>
                                     <div class="flex items-center pl-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        @if(in_array($genre, $searchGenres) || count($searchGenres)<2)
+                                        @if(in_array($genre, $searchGenres) || empty($searchGenres[0]))
                                             <input checked id="checkbox-item-{{$loop->index}}" type="checkbox" value=""
                                                    class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300
                                                    rounded focus:ring-purple-500 dark:focus:ring-purple-600

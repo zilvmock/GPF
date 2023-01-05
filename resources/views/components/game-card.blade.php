@@ -22,7 +22,7 @@
     <div class="flex flex-wrap">
         @php($genres = explode(', ', $genres))
         @foreach($genres as $genre)
-            <a href="{{route('browse', ['search' => $genre])}}"
+            <a href="{{route('browse', ['search' => '', 'genres' => $genre])}}"
                class="bg-gray-100 text-gray-800 font-bold text-sm font-medium mr-2 mt-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
                 {!! $genre !!}
             </a>
