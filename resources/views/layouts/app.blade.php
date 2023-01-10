@@ -48,22 +48,22 @@
             </header>
 
             {{-- Page Content --}}
-                <main class="px-4 sm:px-6 flex-1">
-                    <x-warning-toast/>
-                    <x-success-toast/>
-                    <x-error-toast/>
-                    @livewire('notification-toast', ['room_id' => auth()->user()->current_room_id ?? 0])
-                    {{ $slot }}
-                </main>
+            <main class="px-4 sm:px-6 flex-1">
+                <x-warning-toast/>
+                <x-success-toast/>
+                <x-error-toast/>
+                @livewire('notification-toast', ['room_id' => auth()->user()->current_room_id ?? 0])
+                {{ $slot }}
+            </main>
 
             {{-- Page Footer --}}
-                <x-footer/>
-            </div>
+            <x-footer/>
         </div>
     </div>
+</div>
 
-    @livewireScripts
-    <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
-    @yield('scripts')
+@livewireScripts
+<script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
+@yield('scripts')
 </body>
 </html>

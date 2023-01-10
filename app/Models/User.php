@@ -52,7 +52,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function hasPendingVerification($id) : bool
+    public function hasPendingVerification($id): bool
     {
         $result = DB::table('pending_user_emails')
             ->where('user_id', $id)

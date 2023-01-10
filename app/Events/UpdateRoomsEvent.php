@@ -12,7 +12,9 @@ class UpdateRoomsEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public function __construct(){}
+    public function __construct()
+    {
+    }
 
     public function broadcastOn()
     {

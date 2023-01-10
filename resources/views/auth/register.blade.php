@@ -26,29 +26,29 @@
                                 {{__('Check')}}
                             </button>
                         </div>
-                            <script type="module">
-                                $(document).ready(function () {
-                                    $('#check_username').click(function () {
-                                        $.ajax({
-                                            url: '{{route('check_username')}}',
-                                            type: 'GET',
-                                            data: {
-                                                username: $('input[id=username]').val(),
-                                            },
-                                        }).done(function (data) {
-                                            let input = $('input[id=username]');
-                                            input.removeClass('focus:ring-purple-500 focus:ring');
-                                            if (data === 'taken') {
-                                                input.removeClass('focus:ring-green-500 ring-green-500');
-                                                input.addClass('focus:ring-red-500 ring ring-red-500');
-                                            } else {
-                                                input.removeClass('focus:ring-red-500 ring-red-500');
-                                                input.addClass('focus:ring-green-500 ring ring-green-500');
-                                            }
-                                        });
+                        <script type="module">
+                            $(document).ready(function () {
+                                $('#check_username').click(function () {
+                                    $.ajax({
+                                        url: '{{route('check_username')}}',
+                                        type: 'GET',
+                                        data: {
+                                            username: $('input[id=username]').val(),
+                                        },
+                                    }).done(function (data) {
+                                        let input = $('input[id=username]');
+                                        input.removeClass('focus:ring-purple-500 focus:ring');
+                                        if (data === 'taken') {
+                                            input.removeClass('focus:ring-green-500 ring-green-500');
+                                            input.addClass('focus:ring-red-500 ring ring-red-500');
+                                        } else {
+                                            input.removeClass('focus:ring-red-500 ring-red-500');
+                                            input.addClass('focus:ring-green-500 ring ring-green-500');
+                                        }
                                     });
                                 });
-                            </script>
+                            });
+                        </script>
                     </x-input-with-icon-wrapper>
                 </div>
 
@@ -84,7 +84,8 @@
                             <x-heroicon-o-lock-closed aria-hidden="true" class="w-5 h-5"/>
                         </x-slot>
                         <x-input withicon id="password_confirmation" class="block w-full" type="password"
-                                 name="password_confirmation" maxlength="64" required placeholder="{{ __('Confirm Password') }}"/>
+                                 name="password_confirmation" maxlength="64" required
+                                 placeholder="{{ __('Confirm Password') }}"/>
                     </x-input-with-icon-wrapper>
                 </div>
 

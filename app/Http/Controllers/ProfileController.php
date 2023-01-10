@@ -24,7 +24,7 @@ class ProfileController extends Controller
 
     public function showEditProfile()
     {
-       return view('edit-profile');
+        return view('edit-profile');
     }
 
     public function updateProfile(Request $request)
@@ -115,10 +115,12 @@ class ProfileController extends Controller
             'xbox_usr' => strip_tags(clean($request->xbox_usr)),
         ];
 
-        $fields = array_filter($fields, function($value) { return $value !== ''; });
+        $fields = array_filter($fields, function ($value) {
+            return $value !== '';
+        });
 
         $validator = Validator::make($fields, [
-            'steam_usr','epic_usr','origin_usr','xbox_usr' => ['max:64', 'min:4', new NotURLInvokableRule()],
+            'steam_usr', 'epic_usr', 'origin_usr', 'xbox_usr' => ['max:64', 'min:4', new NotURLInvokableRule()],
         ]);
 
         if ($validator->passes()) {

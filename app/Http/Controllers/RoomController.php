@@ -49,22 +49,22 @@ class RoomController extends Controller
         ];
 
         $validator = Validator::make($fieldsToVerify, [
-            'title' => ['required', 'min:6' ,'max:128'],
+            'title' => ['required', 'min:6', 'max:128'],
             'size' => ['required', 'numeric', 'min:2', 'max:16'],
         ], [
             'required' => 'The :attribute field can not be blank!',
         ]);
 
         if ($validator->passes()) {
-             $roomId = Room::insertGetId([
-                 'owner_id' => $owner_id,
-                 'game_id' => $game_id,
-                 'title' => $fieldsToVerify['title'],
-                 'slug' => Str::slug($fieldsToVerify['title']),
-                 'size' => $fieldsToVerify['size'],
-                 'created_at' => now(),
-                 'updated_at' => now(),
-             ]);
+            $roomId = Room::insertGetId([
+                'owner_id' => $owner_id,
+                'game_id' => $game_id,
+                'title' => $fieldsToVerify['title'],
+                'slug' => Str::slug($fieldsToVerify['title']),
+                'size' => $fieldsToVerify['size'],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
 
             auth()->user()->current_room_id = $roomId;
             auth()->user()->save();
@@ -269,8 +269,8 @@ class RoomController extends Controller
 
         if ($room->is_locked) {
             Message::insert($message_fields + [
-                'message' => 'Room was locked by the owner!',
-            ]);
+                    'message' => 'Room was locked by the owner!',
+                ]);
             return redirect()->back()->with('success', __('Room locked!'));
         } else {
             Message::insert($message_fields + [
