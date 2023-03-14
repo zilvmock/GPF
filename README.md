@@ -1,77 +1,27 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# GPF - Game Pal Finder
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Introducition
+The goal of this project is to create a social networking website for computer gamers. This website provides a single platform where gaming enthusiasts can find like-minded individuals to connect with.
 
-## About Laravel
+Users can create an account on the website to access a variety of computer games. Upon selecting a game, users can enter chat rooms that are associated with the game and connect with other users who are also interested in playing. Users can join existing chat rooms or create their own chat rooms.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and
-creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in
-many web projects, such as:
+Once there are at least two people in a chat room, they can communicate with each other through live messaging and start playing together.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache)
-  storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+This project is developed using Laravel 9 framework.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Features
 
-## Learning Laravel
+The website provides a simple registration process that requires users to create an account and validate it through email before logging in. Once logged in, users can edit their profiles to add gaming platform usernames, making it easier for others to find them. Users can search for games based on category and view the number of active rooms for each game to determine which games are currently popular.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all
-modern web application frameworks, making it a breeze to get started with the framework.
+Upon selecting a game, users can enter chat rooms that are associated with the game and connect with other users who are also interested in playing. Users can join existing chat rooms or create their own chat rooms. Whoever creates a room can also moderate it by kicking users, locking the room so others cannot join anymore. Rooms have an active user count that updates live and displays the room status. In the room itself, users can send images and use emojis to express themselves. Once there are at least two people in a chat room, they can communicate with each other through live messaging and start playing together.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a
-modern Laravel application from scratch.
+## Technologies
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video
-tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging
-into our comprehensive video library.
+- [**Laravel Echo**](https://github.com/laravel/echo) and [**Pusher**](https://pusher.com/): These technologies are used to create a real-time communication API, which allows users to see live updates to the chat rooms and events happening on the website. This is essential for creating a seamless and engaging user experience, as it ensures that users are always up-to-date with what's happening on the site.
 
-## Laravel Sponsors
+- [**Laravel Livewire**](https://laravel-livewire.com/), [**AJAX**](http://api.jquery.com/jquery.ajax/), and [**jQuery**](https://api.jquery.com/): These technologies are used to create a responsive website that adapts to user interactions. Livewire is a PHP framework that enables developers to create reactive interfaces, while AJAX and jQuery are JavaScript libraries used to make asynchronous requests to the server. By leveraging these technologies, the website is able to provide users with a fast and interactive experience.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in
-becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in
-the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by
-the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell
-via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- [**IGDB API**](https://www.igdb.com/api): The IGDB API is used to retrieve data on multiplayer video games. This allows the website to display accurate and up-to-date information on the games that users are interested in playing. By providing users with detailed information on the games available, the website is able to help users find games they enjoy and connect with other players who share their interests.
 
 ## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+GPF is licensed under the [Apache License 2.0](https://github.com/z1lvis/GPF/blob/main/LICENSE.md).
